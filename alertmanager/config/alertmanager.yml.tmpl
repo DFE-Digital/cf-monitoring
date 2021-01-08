@@ -1,8 +1,8 @@
 global:
  resolve_timeout: 1m
- %{ if slack_url != "" ~}
+%{ if slack_url != "" ~}
  slack_api_url: '${slack_url}'
- %{ endif ~}
+%{ endif ~}
 
 route:
  receiver: 'slack-notifications'
