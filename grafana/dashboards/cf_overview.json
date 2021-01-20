@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1609768744994,
+  "id": 4,
+  "iteration": 1611160809012,
   "links": [],
   "panels": [
     {
@@ -321,12 +321,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(requests{app=~\"$Applications\"}[5m])) by (app) *60",
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\"}[5m])) by (app) *60",
           "legendFormat": "{{app}} total requests",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(requests{app=~\"$Applications\",status_range=~\"0xx|4xx|5xx\"}[5m])) by (app) *60",
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"0xx|4xx|5xx\"}[5m])) by (app) *60",
           "legendFormat": "{{app}} failed requests",
           "refId": "B"
         }
@@ -413,7 +413,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(rate(response_time_sum{app=~\"$Applications\"}[1m])) by (app)",
+          "expr": "avg(rate(response_time_sum{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app)",
           "legendFormat": "{{app}}",
           "refId": "A"
         }
@@ -787,8 +787,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "teaching-vacancies-production",
-          "value": "teaching-vacancies-production"
+          "tags": [],
+          "text": "bat-prod",
+          "value": "bat-prod"
         },
         "datasource": "Prometheus",
         "definition": "label_values(memory_utilization{organisation =~\"$OrgName\"},space)",
