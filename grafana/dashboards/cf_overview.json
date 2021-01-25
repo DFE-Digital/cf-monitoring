@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1611160809012,
+  "id": 3,
+  "iteration": 1611575851481,
   "links": [],
   "panels": [
     {
@@ -762,32 +762,6 @@
       {
         "allValue": null,
         "current": {
-          "text": "dfe-teacher-services",
-          "value": "dfe-teacher-services"
-        },
-        "datasource": "Prometheus",
-        "definition": "label_values(memory_utilization, organisation)",
-        "hide": 0,
-        "includeAll": false,
-        "label": "OrgName",
-        "multi": false,
-        "name": "OrgName",
-        "options": [],
-        "query": "label_values(memory_utilization, organisation)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "tags": [],
           "text": "bat-prod",
           "value": "bat-prod"
         },
@@ -814,7 +788,6 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "tags": [],
           "text": "All",
           "value": "$__all"
         },
