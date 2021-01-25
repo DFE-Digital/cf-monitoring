@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1611575851481,
+  "id": 1,
+  "iteration": 1611590381081,
   "links": [],
   "panels": [
     {
@@ -762,18 +762,19 @@
       {
         "allValue": null,
         "current": {
+          "tags": [],
           "text": "bat-prod",
           "value": "bat-prod"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(memory_utilization{organisation =~\"$OrgName\"},space)",
+        "definition": "label_values(space)",
         "hide": 0,
         "includeAll": false,
         "label": "SpaceName",
         "multi": false,
         "name": "SpaceName",
         "options": [],
-        "query": "label_values(memory_utilization{organisation =~\"$OrgName\"},space)",
+        "query": "label_values(space)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
