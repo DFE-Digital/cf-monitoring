@@ -1,0 +1,18 @@
+%{ if google_jwt != "" }
+apiVersion: 1
+
+deleteDatasources:
+- name: GoogleSheetsDatasource
+  orgId: 1
+  
+datasources:
+  - name: GoogleSheetsDatasource
+    type: grafana-googlesheets-datasource
+    enabled: true
+    jsonData:
+      authType: 'jwt'
+    secureJsonData:
+      jwt: '${google_jwt}'
+    version: 1
+    editable: true
+%{ endif }
