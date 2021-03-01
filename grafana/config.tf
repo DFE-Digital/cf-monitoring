@@ -33,6 +33,10 @@ data archive_file config {
     filename = "datasources/influxdb.yml"
   }
 
+  source {
+    content  = templatefile("${path.module}/datasources/google-sheets.yml.tmpl", local.grafana_datasource_variables)
+    filename = "datasources/google-sheets.yml"
+  }
 
   dynamic "source" {
     for_each = local.dashboards
