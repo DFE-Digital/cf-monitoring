@@ -14,6 +14,7 @@ module influxdb {
 
   monitoring_instance_name = var.monitoring_instance_name
   monitoring_space_id      = data.cloudfoundry_space.monitoring.id
+  service_plan             = var.influxdb_service_plan
 }
 
 module prometheus {
