@@ -19,6 +19,8 @@ variable grafana_extra_datasources { default = [] }
 variable prometheus_memory { default = null }
 variable prometheus_disk_quota { default = null }
 
+variable influxdb_service_plan { default = null }
+
 variable enabled_modules {
   type = list
   default = [
