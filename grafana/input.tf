@@ -10,6 +10,15 @@ variable google_client_id { default = "" }
 variable google_client_secret { default = "" }
 variable google_jwt { default = "" }
 variable influxdb_credentials { default = null }
+variable elasticsearch_credentials { 
+  type = map
+
+  default = {
+    url      = ""
+    username = ""
+    password = ""
+  }
+}
 
 variable admin_password {}
 variable json_dashboards { default = [] }
@@ -23,7 +32,10 @@ locals {
     google_client_secret = var.google_client_secret
   }
   grafana_datasource_variables = {
-    google_jwt  = var.google_jwt
+    google_jwt             = var.google_jwt
+    elasticsearch_url      = var.elasticsearch_credentials.url
+    elasticsearch_username = var.elasticsearch_credentials.username
+    elasticsearch_password = var.elasticsearch_credentials.password
   }
   prometheus_datasource_variables = {
     prometheus_endpoint      = var.prometheus_endpoint
