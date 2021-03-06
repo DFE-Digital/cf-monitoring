@@ -87,10 +87,15 @@ The following plugins are included. They are listed in the `plugins.txt` file:
 grafana-piechart-panel
 aidanmountford-html-panel
 simpod-json-datasource
+grafana-googlesheets-datasource
 ```
+### LOGIT (ELK) Integration
+By passing in the URL, Username and Password of an ELK stack end point, such as [Logit]( logit.io ) the deployment will include a datasource which you can use in dashboards to incorporate log data.
+The ELK datasource does not need to be added as it is a default datasorce.
 
 ### Google Integration
 Grafana supports integration with google logins. The ID must be configured and passed in to support this, following the [grafana instructions](https://grafana.com/docs/grafana/latest/auth/google/).
+It is also possible to include data from Google Sheets if a GOOGLE_JWT string is passed.
 
 ### Runtime version
 The default version is 6.5.1. It has been tested successfully with version 7.
@@ -110,5 +115,12 @@ module "grafana" {
      extra_datasources        = [file("${path.module}/datasources/elasticsearch.yml)",
      prometheus_endpoint      = "https://prometheus.london.cloudapps.digital"
      runtime_version          = "x.x.x"
+
+     google_jwt               = "very long and secret JWT String"
+
+     elasticsearch_credentials= { 
+             url = xxxx
+             username = yyyyy 
+             password = zzzzz }
 }
 ```

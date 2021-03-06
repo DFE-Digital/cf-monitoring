@@ -38,6 +38,11 @@ data archive_file config {
     filename = "datasources/google-sheets.yml"
   }
 
+  source {
+    content  = templatefile("${path.module}/datasources/elasticsearch.yml.tmpl", local.grafana_datasource_variables)
+    filename = "datasources/elasticsearch.yml"
+  }
+
   dynamic "source" {
     for_each = local.dashboards
     content {
