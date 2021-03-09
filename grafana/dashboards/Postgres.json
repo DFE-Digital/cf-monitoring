@@ -17,7 +17,7 @@
   "gnetId": 10063,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1615303138222,
+  "iteration": 1615369027373,
   "links": [],
   "panels": [
     {
@@ -324,7 +324,7 @@
           "$$hashKey": "object:338",
           "colorMode": "critical",
           "fill": true,
-          "line": false,
+          "line": true,
           "op": "lt",
           "value": 100000000,
           "yaxis": "left"
@@ -354,7 +354,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -812,7 +812,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "10s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
@@ -849,7 +849,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "get-into-teaching-api-prod-pg-common-svc",
           "value": "get-into-teaching-api-prod-pg-common-svc"
         },
@@ -875,8 +875,8 @@
     ]
   },
   "time": {
-    "from": "2021-03-07T23:59:23.308Z",
-    "to": "2021-03-08T00:05:13.848Z"
+    "from": "now-3h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -906,5 +906,5 @@
   "timezone": "",
   "title": "CF Databases",
   "uid": "a2FR6FUMz",
-  "version": 12
+  "version": 13
 }
