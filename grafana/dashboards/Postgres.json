@@ -17,7 +17,7 @@
   "gnetId": 10063,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1615369027373,
+  "iteration": 1615389783027,
   "links": [],
   "panels": [
     {
@@ -875,7 +875,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -906,5 +906,5 @@
   "timezone": "",
   "title": "CF Databases",
   "uid": "a2FR6FUMz",
-  "version": 13
+  "version": 15
 }
