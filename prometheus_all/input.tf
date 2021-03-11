@@ -16,7 +16,7 @@ variable grafana_admin_password {}
 variable grafana_json_dashboards { default = [] }
 variable grafana_extra_datasources { default = [] }
 variable grafana_google_jwt { default = "" }
-variable grafana_runtime_version { default = ""} 
+variable grafana_runtime_version { default = "" }
 
 variable prometheus_memory { default = null }
 variable prometheus_disk_quota { default = null }

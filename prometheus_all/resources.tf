@@ -10,10 +10,10 @@ module paas_prometheus_exporter {
 
 module "redis_prometheus_exporter" {
   source                    = "../redis_prometheus_exporter"
-  count                     = var.redis_service_instance_id == "" ?  0 : 1
+  count                     = var.redis_service_instance_id == "" ? 0 : 1
   monitoring_instance_name  = var.monitoring_instance_name
   monitoring_space_id       = data.cloudfoundry_space.monitoring.id
-  redis_service_instance_id = var.redis_service_instance_id   
+  redis_service_instance_id = var.redis_service_instance_id
 }
 
 module influxdb {
@@ -29,16 +29,16 @@ module prometheus {
   source = "../prometheus"
   count  = contains(var.enabled_modules, "prometheus") ? 1 : 0
 
-  monitoring_instance_name          = var.monitoring_instance_name
-  monitoring_space_id               = data.cloudfoundry_space.monitoring.id
-  paas_prometheus_exporter_endpoint = module.paas_prometheus_exporter[0].endpoint
-  redis_prometheus_exporter_endpoint= var.redis_service_instance_id == "" ? "" : module.redis_prometheus_exporter[0].endpoint
-  influxdb_service_instance_id      = module.influxdb[0].service_instance_id
-  alertmanager_endpoint             = contains(var.enabled_modules, "alertmanager") ? module.alertmanager[0].endpoint : ""
-  alert_rules                       = var.alert_rules
-  memory                            = var.prometheus_memory
-  disk_quota                        = var.prometheus_disk_quota
-  extra_scrape_config               = var.prometheus_extra_scrape_config
+  monitoring_instance_name           = var.monitoring_instance_name
+  monitoring_space_id                = data.cloudfoundry_space.monitoring.id
+  paas_prometheus_exporter_endpoint  = module.paas_prometheus_exporter[0].endpoint
+  redis_prometheus_exporter_endpoint = var.redis_service_instance_id == null ? null : module.redis_prometheus_exporter[0].endpoint
+  influxdb_service_instance_id       = module.influxdb[0].service_instance_id
+  alertmanager_endpoint              = contains(var.enabled_modules, "alertmanager") ? module.alertmanager[0].endpoint : ""
+  alert_rules                        = var.alert_rules
+  memory                             = var.prometheus_memory
+  disk_quota                         = var.prometheus_disk_quota
+  extra_scrape_config                = var.prometheus_extra_scrape_config
 }
 
 module alertmanager {
