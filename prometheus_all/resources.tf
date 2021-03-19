@@ -10,7 +10,7 @@ module paas_prometheus_exporter {
 
 module "redis_prometheus_exporter" {
   source                    = "../redis_prometheus_exporter"
-  count                     = var.redis_service_instance_id == "" ? 0 : 1
+  count                     = var.redis_service_instance_id == null ? 0 : 1
   monitoring_instance_name  = var.monitoring_instance_name
   monitoring_space_id       = data.cloudfoundry_space.monitoring.id
   redis_service_instance_id = var.redis_service_instance_id
@@ -32,7 +32,7 @@ module prometheus {
   monitoring_instance_name           = var.monitoring_instance_name
   monitoring_space_id                = data.cloudfoundry_space.monitoring.id
   paas_prometheus_exporter_endpoint  = module.paas_prometheus_exporter[0].endpoint
-  redis_prometheus_exporter_endpoint = var.redis_service_instance_id == null ? null : module.redis_prometheus_exporter[0].endpoint
+  redis_prometheus_exporter_endpoint = var.redis_service_instance_id == null ? "" : module.redis_prometheus_exporter[0].endpoint
   influxdb_service_instance_id       = module.influxdb[0].service_instance_id
   alertmanager_endpoint              = contains(var.enabled_modules, "alertmanager") ? module.alertmanager[0].endpoint : ""
   alert_rules                        = var.alert_rules
