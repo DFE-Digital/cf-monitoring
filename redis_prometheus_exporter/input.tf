@@ -1,3 +1,3 @@
+variable org_name { default = "dfe" }
 variable monitoring_space_id {}
-variable monitoring_instance_name {}
-variable redis_service_instance_id {}
+variable redis_service_instance {}

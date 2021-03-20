@@ -12,6 +12,14 @@ Finally, the metrics are available in [grafana](https://grafana.com/) to build d
 and set it up as `SpaceAuditor` on each monitored space.
 - Terraform and the [cloudfoundry plugin](https://registry.terraform.io/providers/cloudfoundry-community/cloudfoundry/latest)
 
+## Redis Services
+If your application uses REDIS you may want to include a REDIS Metrics Exporter for each instance of REDIS you use. This is accomplished by passing in an array of strings. Each string takes the form
+of Space/Service, for example
+
+```
+     redis_services = [ 'get_into_teaching/redis_service_one' , 'get_into_teaching/redis_service_two' , ... ]
+```
+
 ## prometheus_all
 
 Wrapper module abstracting all the other modules. It should be sufficient for most use cases but underlying modules can also be used directly.
