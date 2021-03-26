@@ -9,8 +9,8 @@ variable runtime_version { default = "6.5.1" }
 variable google_client_id { default = "" }
 variable google_client_secret { default = "" }
 variable google_jwt { default = "" }
-variable influxdb_credentials { default = null }
-variable elasticsearch_credentials { 
+variable influxdb_credentials { default = null}
+variable elasticsearch_credentials {
   type = map
 
   default = {
