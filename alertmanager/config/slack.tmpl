@@ -71,7 +71,7 @@
 {{ define "slack.monzo.pretext" -}}
     {{ range .Alerts }}
         {{- if .Annotations.summary }}
-            *{{ .Annotations.summary }}*
+         <!channel> *{{ .Annotations.summary }}*
         {{- end }}
     {{- end }}
 {{- end }}
@@ -87,4 +87,3 @@
         {{- end }}
     {{- end }}
 {{- end }}
-
