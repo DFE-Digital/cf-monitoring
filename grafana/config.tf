@@ -1,6 +1,7 @@
 data archive_file config {
   type        = "zip"
   output_path = "${path.module}/files/grafana.zip"
+  sensitive = true
 
   source {
     content  = file("${path.module}/config/plugins.txt")
