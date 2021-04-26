@@ -2,9 +2,7 @@ variable monitoring_space_id {}
 
 variable monitoring_instance_name {}
 
-variable paas_prometheus_exporter_endpoint {}
-
-variable redis_prometheus_exporter_endpoint { default = "" }
+variable exporters { default = [] }
 
 variable alertmanager_endpoint { default = "" }
 
@@ -20,15 +18,13 @@ variable extra_scrape_config { default = "" }
 
 locals {
   template_variable_map = {
-    paas_prometheus_exporter_endpoint  = var.paas_prometheus_exporter_endpoint
-    redis_prometheus_exporter_endpoint = var.redis_prometheus_exporter_endpoint
-    alertmanager_endpoint              = var.alertmanager_endpoint
-    paas_prometheus_exporter_name      = "paas-prometheus-exporter-${var.monitoring_instance_name}"
-    include_alerting                   = var.alert_rules == "" ? false : true
-    include_redis_exporter             = var.redis_prometheus_exporter_endpoint == "" ? false : true
-    include_scrapes                    = var.extra_scrape_config == "" ? false : true
-    scrapes                            = var.extra_scrape_config
+    exporters                         = var.exporters
+    alertmanager_endpoint             = var.alertmanager_endpoint
+    include_alerting                  = var.alert_rules != ""
+    include_scrapes                   = var.extra_scrape_config != "" 
+    scrapes                           = var.extra_scrape_config
   }
 
   config_file = templatefile("${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
 }
+

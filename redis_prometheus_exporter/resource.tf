@@ -1,6 +1,16 @@
+data cloudfoundry_space redis_space {
+  name     = split("/", var.redis_service_instance)[0]
+  org_name = var.org_name
+}
+
+data cloudfoundry_service_instance redis_instance {
+  name_or_id = split("/", var.redis_service_instance)[1]
+  space      = data.cloudfoundry_space.redis_space.id
+}
+
 resource cloudfoundry_service_key redis-key {
-  name             = "redis-key"
-  service_instance = var.redis_service_instance_id
+  name             = data.cloudfoundry_service_instance.redis_instance.name
+  service_instance = data.cloudfoundry_service_instance.redis_instance.id
 }
 
 locals {
@@ -8,7 +18,7 @@ locals {
 }
 
 resource cloudfoundry_app redis-exporter {
-  name         = "redis-exporter-${var.monitoring_instance_name}"
+  name         = "redis-exporter-${data.cloudfoundry_service_instance.redis_instance.name}"
   space        = var.monitoring_space_id
   docker_image = "oliver006/redis_exporter:latest"
 
@@ -25,6 +35,6 @@ resource cloudfoundry_app redis-exporter {
 resource cloudfoundry_route redis_exporter {
   space    = var.monitoring_space_id
   domain   = data.cloudfoundry_domain.cloudapps.id
-  hostname = "redis-exporter-${var.monitoring_instance_name}"
+  hostname = data.cloudfoundry_service_instance.redis_instance.name
 }
 

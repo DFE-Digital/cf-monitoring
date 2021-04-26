@@ -18,13 +18,23 @@ variable grafana_extra_datasources { default = [] }
 variable grafana_google_jwt { default = "" }
 variable grafana_runtime_version { default = "6.5.1" }
 
+variable grafana_elasticsearch_credentials {
+  type = map
+
+  default = {
+    url      = ""
+    username = ""
+    password = ""
+  }
+}
+
 variable prometheus_memory { default = null }
 variable prometheus_disk_quota { default = null }
 variable prometheus_extra_scrape_config { default = "" }
 
 variable influxdb_service_plan { default = "tiny-1_x" }
 
-variable redis_service_instance_id { default = null }
+variable redis_services { default = [] }
 
 variable enabled_modules {
   type = list
@@ -35,4 +45,8 @@ variable enabled_modules {
     "alertmanager",
     "influxdb"
   ]
+}
+
+locals {
+  list_of_redis_exporters = [ for redis_module in module.redis_prometheus_exporter : redis_module.exporter ]
 }
