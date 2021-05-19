@@ -35,6 +35,7 @@ variable prometheus_extra_scrape_config { default = "" }
 variable influxdb_service_plan { default = "tiny-1_x" }
 
 variable redis_services { default = [] }
+variable postgres_services { default = [] }
 
 variable enabled_modules {
   type = list
@@ -49,4 +50,5 @@ variable enabled_modules {
 
 locals {
   list_of_redis_exporters = [ for redis_module in module.redis_prometheus_exporter : redis_module.exporter ]
+  list_of_postgres_exporters = [ for postgres_module in module.postgres_prometheus_exporter : postgres_module.exporter ]
 }
