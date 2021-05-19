@@ -5,7 +5,8 @@ This is a terraform module used to install the [POSTGRES-EXPORTER](https://githu
 ### Inputs
 ```monitoring_space_id           MANDATORY
    monitoring_instance_name      MANDATORY
-   postgres_service_instance_id     MANDATORY
+   postgres_service_instance     MANDATORY This is a string with space the service 
+                                           resides in and the name of the service, seperated by a / 
 ```
 
 ### Outputs
@@ -19,6 +20,7 @@ module "postgres" {
 
      monitoring_space_id                = data.cloudfoundry_space.space.id
      monitoring_instance_name           = "get_into_teaching"
-     postgres_service_instance_id          = data.cloudfoundry_service_instance.postgres.id
+     postgres_service_instance          = "space/service_name"
 }
 ```
+
