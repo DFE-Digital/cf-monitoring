@@ -37,6 +37,8 @@ variable influxdb_service_plan { default = "tiny-1_x" }
 variable redis_services { default = [] }
 variable postgres_services { default = [] }
 
+variable external_exporters { default = [] }
+
 variable enabled_modules {
   type = list
   default = [
@@ -51,4 +53,11 @@ variable enabled_modules {
 locals {
   list_of_redis_exporters = [ for redis_module in module.redis_prometheus_exporter : redis_module.exporter ]
   list_of_postgres_exporters = [ for postgres_module in module.postgres_prometheus_exporter : postgres_module.exporter ]
+  list_of_external_exporters = [ for endpoint in var.external_exporters:
+    {
+      endpoint = endpoint
+      name     = endpoint
+      scheme   = "https"
+    }
+  ]
 }

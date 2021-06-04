@@ -37,7 +37,12 @@ module prometheus {
 
   monitoring_instance_name     = var.monitoring_instance_name
   monitoring_space_id          = data.cloudfoundry_space.monitoring.id
-  exporters                    = concat( local.list_of_redis_exporters , module.paas_prometheus_exporter.*.exporter , local.list_of_postgres_exporters )
+  exporters                    = concat(
+    local.list_of_redis_exporters,
+    module.paas_prometheus_exporter.*.exporter,
+    local.list_of_postgres_exporters,
+    local.list_of_external_exporters
+  )
   influxdb_service_instance_id = module.influxdb[0].service_instance_id
   alertmanager_endpoint        = contains(var.enabled_modules, "alertmanager") ? module.alertmanager[0].endpoint : ""
   alert_rules                  = var.alert_rules
