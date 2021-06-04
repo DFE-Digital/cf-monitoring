@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+
+  run-tests:
+    name: Run tests
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout Code
+
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.14.11
+
+    - name: Check terraform format
+      run:
+        terraform fmt -recursive -check -diff
