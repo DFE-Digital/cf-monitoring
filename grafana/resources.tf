@@ -1,10 +1,10 @@
-resource cloudfoundry_route grafana {
+resource "cloudfoundry_route" "grafana" {
   domain   = data.cloudfoundry_domain.cloudapps.id
   space    = var.monitoring_space_id
   hostname = "grafana-${var.monitoring_instance_name}"
 }
 
-resource cloudfoundry_app grafana {
+resource "cloudfoundry_app" "grafana" {
   name             = "grafana-${var.monitoring_instance_name}"
   space            = var.monitoring_space_id
   path             = data.archive_file.config.output_path

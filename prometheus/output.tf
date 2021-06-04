@@ -1,11 +1,11 @@
-output endpoint {
+output "endpoint" {
   value = cloudfoundry_route.prometheus.endpoint
 }
 
-output app_id {
+output "app_id" {
   value = cloudfoundry_app.prometheus.id
 }
 
-output config {
+output "config" {
   value = local.config_file
 }

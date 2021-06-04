@@ -1,11 +1,11 @@
-variable monitoring_instance_name {}
+variable "monitoring_instance_name" {}
 
-variable monitoring_space_id {}
+variable "monitoring_space_id" {}
 
-variable config { default = "" }
+variable "config" { default = "" }
 
-variable slack_url { default = "" }
-variable slack_channel { default = "" }
+variable "slack_url" { default = "" }
+variable "slack_channel" { default = "" }
 locals {
   alertmanager_variables = {
     slack_url     = var.slack_url

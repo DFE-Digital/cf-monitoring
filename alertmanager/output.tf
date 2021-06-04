@@ -1,3 +1,3 @@
-output endpoint {
+output "endpoint" {
   value = cloudfoundry_route.alertmanager.endpoint
 }
