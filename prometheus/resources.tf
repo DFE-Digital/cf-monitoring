@@ -1,10 +1,10 @@
-resource cloudfoundry_route prometheus {
+resource "cloudfoundry_route" "prometheus" {
   domain   = data.cloudfoundry_domain.cloudapps.id
   space    = var.monitoring_space_id
   hostname = "prometheus-${var.monitoring_instance_name}"
 }
 
-resource cloudfoundry_app prometheus {
+resource "cloudfoundry_app" "prometheus" {
   name             = "prometheus-${var.monitoring_instance_name}"
   space            = var.monitoring_space_id
   path             = data.archive_file.config.output_path

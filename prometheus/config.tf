@@ -1,4 +1,4 @@
-data archive_file config {
+data "archive_file" "config" {
   type        = "zip"
   output_path = "${path.module}/files/prometheus.zip"
 

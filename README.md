@@ -5,7 +5,7 @@ Prometheus collects the metrics from Cloud foundry: applications, services, cpu,
 Metrics-based alerts can be created in prometheus and processed by [alertmanager](https://prometheus.io/docs/alerting/) to send to Slack, email, pagerduty, etc.
 Finally, the metrics are available in [grafana](https://grafana.com/) to build dashboards, help troubleshooting and create alerts. A default Cloud foundry dashboard is included.
 
-## Prerequesites
+## Prerequisites
 
 - By default, the influxdb database service must be present (as it is on [GOV.UK PaaS](https://www.cloud.service.gov.uk/)). If not, another backend can be used and the influxdb module disabled.
 - The [paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter) requires a cf username and password to connect and read metrics. It is recommended to create a service account
@@ -19,6 +19,11 @@ of Space/Service, for example
 ```
      redis_services = [ 'get_into_teaching/redis_service_one' , 'get_into_teaching/redis_service_two' , ... ]
 ```
+
+## External exporters
+List of external endpoints which can be queried via `/metrics`. Can be used for apps deployed to Cloud foundry or any external services.
+
+They must be accessible via https.
 
 ## prometheus_all
 
@@ -43,6 +48,7 @@ module prometheus_all {
     file("${path.module}/dashboards/frontend.json)",
     file("${path.module}/dashboards/backend.json)"
   ]
+  external_exporters      = ["www.my-external-service.org"]
 }
 ```
 

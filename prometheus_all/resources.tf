@@ -1,4 +1,4 @@
-module paas_prometheus_exporter {
+module "paas_prometheus_exporter" {
   source = "../paas_prometheus_exporter"
   count  = contains(var.enabled_modules, "paas_prometheus_exporter") ? 1 : 0
 
@@ -10,19 +10,19 @@ module paas_prometheus_exporter {
 
 module "redis_prometheus_exporter" {
   source                 = "../redis_prometheus_exporter"
-  for_each = toset( var.redis_services )
+  for_each               = toset(var.redis_services)
   monitoring_space_id    = data.cloudfoundry_space.monitoring.id
   redis_service_instance = each.key
 }
 
 module "postgres_prometheus_exporter" {
-  source                 = "../postgres_prometheus_exporter"
-  for_each = toset( var.postgres_services )
-  monitoring_space_id    = data.cloudfoundry_space.monitoring.id
+  source                    = "../postgres_prometheus_exporter"
+  for_each                  = toset(var.postgres_services)
+  monitoring_space_id       = data.cloudfoundry_space.monitoring.id
   postgres_service_instance = each.key
 }
 
-module influxdb {
+module "influxdb" {
   source = "../influxdb"
   count  = contains(var.enabled_modules, "influxdb") ? 1 : 0
 
@@ -31,13 +31,18 @@ module influxdb {
   service_plan             = var.influxdb_service_plan
 }
 
-module prometheus {
+module "prometheus" {
   source = "../prometheus"
   count  = contains(var.enabled_modules, "prometheus") ? 1 : 0
 
-  monitoring_instance_name     = var.monitoring_instance_name
-  monitoring_space_id          = data.cloudfoundry_space.monitoring.id
-  exporters                    = concat( local.list_of_redis_exporters , module.paas_prometheus_exporter.*.exporter , local.list_of_postgres_exporters )
+  monitoring_instance_name = var.monitoring_instance_name
+  monitoring_space_id      = data.cloudfoundry_space.monitoring.id
+  exporters = concat(
+    local.list_of_redis_exporters,
+    module.paas_prometheus_exporter.*.exporter,
+    local.list_of_postgres_exporters,
+    local.list_of_external_exporters
+  )
   influxdb_service_instance_id = module.influxdb[0].service_instance_id
   alertmanager_endpoint        = contains(var.enabled_modules, "alertmanager") ? module.alertmanager[0].endpoint : ""
   alert_rules                  = var.alert_rules
@@ -46,7 +51,7 @@ module prometheus {
   extra_scrape_config          = var.prometheus_extra_scrape_config
 }
 
-module alertmanager {
+module "alertmanager" {
   source = "../alertmanager"
   count  = contains(var.enabled_modules, "alertmanager") ? 1 : 0
 
@@ -57,7 +62,7 @@ module alertmanager {
   slack_channel            = var.alertmanager_slack_channel
 }
 
-module grafana {
+module "grafana" {
   source = "../grafana"
   count  = contains(var.enabled_modules, "grafana") ? 1 : 0
 

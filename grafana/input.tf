@@ -1,17 +1,17 @@
-variable monitoring_instance_name {}
+variable "monitoring_instance_name" {}
 
-variable monitoring_space_id {}
+variable "monitoring_space_id" {}
 
-variable prometheus_endpoint {}
+variable "prometheus_endpoint" {}
 
-variable runtime_version { default = "6.5.1" }
+variable "runtime_version" { default = "6.5.1" }
 
-variable google_client_id { default = "" }
-variable google_client_secret { default = "" }
-variable google_jwt { default = "" }
-variable influxdb_credentials { default = null }
-variable elasticsearch_credentials { 
-  type = map
+variable "google_client_id" { default = "" }
+variable "google_client_secret" { default = "" }
+variable "google_jwt" { default = "" }
+variable "influxdb_credentials" { default = null }
+variable "elasticsearch_credentials" {
+  type = map(any)
 
   default = {
     url      = ""
@@ -20,9 +20,9 @@ variable elasticsearch_credentials {
   }
 }
 
-variable admin_password {}
-variable json_dashboards { default = [] }
-variable extra_datasources { default = [] }
+variable "admin_password" {}
+variable "json_dashboards" { default = [] }
+variable "extra_datasources" { default = [] }
 
 locals {
   dashboard_list = fileset(path.module, "dashboards/*.json")
