@@ -10,7 +10,8 @@ Finally, the metrics are available in [grafana](https://grafana.com/) to build d
 - By default, the influxdb database service must be present (as it is on [GOV.UK PaaS](https://www.cloud.service.gov.uk/)). If not, another backend can be used and the influxdb module disabled.
 - The [paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter) requires a cf username and password to connect and read metrics. It is recommended to create a service account
 and set it up as `SpaceAuditor` on each monitored space.
-- Terraform and the [cloudfoundry plugin](https://registry.terraform.io/providers/cloudfoundry-community/cloudfoundry/latest)
+- [Terraform](https://www.terraform.io/) (Tested with version 0.14)
+- [Terraform cloudfoundry provider](https://registry.terraform.io/providers/cloudfoundry-community/cloudfoundry/latest)
 
 ## Redis Services
 If your application uses REDIS you may want to include a REDIS Metrics Exporter for each instance of REDIS you use. This is accomplished by passing in an array of strings. Each string takes the form
