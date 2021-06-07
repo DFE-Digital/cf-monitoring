@@ -49,6 +49,7 @@ module "prometheus" {
   memory                       = var.prometheus_memory
   disk_quota                   = var.prometheus_disk_quota
   extra_scrape_config          = var.prometheus_extra_scrape_config
+  internal_apps                = var.internal_apps
 }
 
 module "alertmanager" {

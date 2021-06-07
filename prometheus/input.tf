@@ -23,6 +23,8 @@ variable "alert_rules" { default = "" }
 
 variable "extra_scrape_config" { default = "" }
 
+variable "internal_apps" { default = [] }
+
 locals {
   app_name = "prometheus-${var.monitoring_instance_name}"
   exporters = [for exporter in var.exporters :
@@ -31,6 +33,13 @@ locals {
       name         = exporter.name
       scheme       = contains(keys(exporter), "scheme") ? exporter.scheme : "https"
       honor_labels = contains(keys(exporter), "honor_labels") ? exporter.honor_labels : false
+    }
+  ]
+  default_internal_app_port = "8080"
+  internal_app_maps = [for app in var.internal_apps :
+    {
+      host = split(":", app)[0]
+      port = try(split(":", app)[1], local.default_internal_app_port)
     }
   ]
   template_variable_map = {
@@ -46,6 +55,7 @@ locals {
     remote_write_password = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_write_0_basic_auth_password
     remote_read_username  = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_basic_auth_username
     remote_read_password  = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_basic_auth_password
+    internal_app_maps     = local.internal_app_maps
   }
   config_file = templatefile("${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
 }

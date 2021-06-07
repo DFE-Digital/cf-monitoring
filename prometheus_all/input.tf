@@ -38,6 +38,7 @@ variable "redis_services" { default = [] }
 variable "postgres_services" { default = [] }
 
 variable "external_exporters" { default = [] }
+variable "internal_apps" { default = [] }
 
 variable "enabled_modules" {
   type = list(any)
