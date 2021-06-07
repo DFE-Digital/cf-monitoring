@@ -1,2 +1,8 @@
 prometheus/files/
 grafana/files/grafana.zip
+
+# Terraform files
+.terraform
+terraform.tfstate.backup
+terraform.tfstate
+terraform.tfvars
