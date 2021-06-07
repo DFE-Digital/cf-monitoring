@@ -1,22 +1,28 @@
 global:
   scrape_interval: 15s
 
+remote_read: 
+  - url: ${remote_read_url}
+    read_recent: ${remote_read_recent}
+    basic_auth:
+      username: ${remote_read_username}
+      password: ${remote_read_password}
+remote_write: 
+  - url: ${remote_write_url}
+    basic_auth:
+      username: ${remote_write_username}
+      password: ${remote_write_password}
+  
 scrape_configs:
-
 %{ for exporter in exporters ~} 
-- job_name: ${exporter.name}
-  %{ if contains(keys(exporter), "scheme") }
-  scheme: ${exporter.scheme} 
-  %{ endif }
-  %{ if contains(keys(exporter), "honor_labels") }
-  honor_labels: ${exporter.honor_labels} 
-  %{ endif }
-  static_configs:
-    - targets: [${exporter.endpoint}]
+  - job_name: ${exporter.name}
+    scheme: ${exporter.scheme} 
+    honor_labels: ${exporter.honor_labels} 
+    static_configs:
+      - targets: [${exporter.endpoint}]
 %{ endfor ~}
-
 %{ if include_scrapes }
-${scrapes}
+  ${scrapes}
 %{ endif }
 
 %{ if include_alerting }
