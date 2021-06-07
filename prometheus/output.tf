@@ -7,5 +7,6 @@ output "app_id" {
 }
 
 output "config" {
-  value = local.config_file
+  value     = local.config_file
+  sensitive = true
 }
