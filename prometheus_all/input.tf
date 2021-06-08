@@ -30,7 +30,6 @@ variable "grafana_elasticsearch_credentials" {
 
 variable "prometheus_memory" { default = null }
 variable "prometheus_disk_quota" { default = null }
-variable "prometheus_extra_scrape_config" { default = "" }
 
 variable "influxdb_service_plan" { default = "tiny-1_x" }
 
@@ -38,6 +37,7 @@ variable "redis_services" { default = [] }
 variable "postgres_services" { default = [] }
 
 variable "external_exporters" { default = [] }
+variable "internal_apps" { default = [] }
 
 variable "enabled_modules" {
   type = list(any)
