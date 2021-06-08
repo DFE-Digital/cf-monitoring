@@ -21,9 +21,6 @@ scrape_configs:
     static_configs:
       - targets: [${exporter.endpoint}]
 %{ endfor ~}
-%{ if include_scrapes }
-  ${scrapes}
-%{ endif }
 
 %{ for app in internal_app_maps ~}
   - job_name: ${ app.host }:${ app.port }

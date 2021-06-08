@@ -21,8 +21,6 @@ variable "influxdb_service_instance_id" {}
 
 variable "alert_rules" { default = "" }
 
-variable "extra_scrape_config" { default = "" }
-
 variable "internal_apps" { default = [] }
 
 locals {
@@ -46,8 +44,6 @@ locals {
     exporters             = local.exporters
     alertmanager_endpoint = var.alertmanager_endpoint
     include_alerting      = var.alert_rules != ""
-    include_scrapes       = var.extra_scrape_config != ""
-    scrapes               = var.extra_scrape_config
     remote_read_url       = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_url
     remote_write_url      = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_write_0_url
     remote_read_recent    = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_read_recent

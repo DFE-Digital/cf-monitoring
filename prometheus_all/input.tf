@@ -30,7 +30,6 @@ variable "grafana_elasticsearch_credentials" {
 
 variable "prometheus_memory" { default = null }
 variable "prometheus_disk_quota" { default = null }
-variable "prometheus_extra_scrape_config" { default = "" }
 
 variable "influxdb_service_plan" { default = "tiny-1_x" }
 
