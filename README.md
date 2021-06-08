@@ -13,19 +13,6 @@ and set it up as `SpaceAuditor` on each monitored space.
 - [Terraform](https://www.terraform.io/) (Tested with version 0.14)
 - [Terraform cloudfoundry provider](https://registry.terraform.io/providers/cloudfoundry-community/cloudfoundry/latest)
 
-## Redis Services
-If your application uses REDIS you may want to include a REDIS Metrics Exporter for each instance of REDIS you use. This is accomplished by passing in an array of strings. Each string takes the form
-of Space/Service, for example
-
-```
-     redis_services = [ 'get_into_teaching/redis_service_one' , 'get_into_teaching/redis_service_two' , ... ]
-```
-
-## External exporters
-List of external endpoints which can be queried via `/metrics`. Can be used for apps deployed to Cloud foundry or any external services.
-
-They must be accessible via https.
-
 ## prometheus_all
 
 Wrapper module abstracting all the other modules. It should be sufficient for most use cases but underlying modules can also be used directly.
@@ -57,3 +44,28 @@ The git reference can be changed. For example for the `dev` branch:
 ```
 source = "git::https://github.com/DFE-Digital/cf-monitoring.git//prometheus_all?ref=dev"
 ```
+
+## Redis Services
+If your application uses REDIS you may want to include a REDIS Metrics Exporter for each instance of REDIS you use. This is accomplished by passing in an array of strings. Each string takes the form
+of Space/Service, for example
+
+```
+redis_services = [ 'get_into_teaching/redis_service_one' , 'get_into_teaching/redis_service_two' , ... ]
+```
+
+## External exporters
+List of external endpoints which can be queried via `/metrics`. Can be used for apps deployed to Cloud foundry or any external services.
+
+They must be accessible via https.
+
+## Internal apps
+Pass a list of applications deployed to Cloud Foundry and prometheus will find each individual instance and scrape metrics from them. The format is:
+
+```
+["<app1_name>.<internal_domain>[:port]", "<app2_name>.<internal_domain>[:port]"]
+```
+
+If the port is not specified, the default Cloud Foundry port will be used (8080).
+
+[Internal routing](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#internal-routes) must be configured so that prometheus can access them.
+`prometheus_all` outputs both prometheus app name and id to help create the network policy.
