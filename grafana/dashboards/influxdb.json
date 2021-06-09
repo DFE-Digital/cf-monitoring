@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "InfluxDB internal metrics display",
+  "description": "InfluxDB internal metrics via InfluxDB datasource",
   "editable": true,
   "gnetId": 421,
   "graphTooltip": 0,
@@ -1678,7 +1678,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "InfluxDB Internal",
+  "title": "InfluxDB",
   "uid": "FJ2tY45Gs",
   "version": 1
 }

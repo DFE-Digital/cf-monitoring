@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "This dashboard works with postgres_exporter for prometheus",
+  "description": "Cloud Foundry custom PostregSQL metrics from postgres_exporter for prometheus",
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
@@ -3402,7 +3402,7 @@
     ]
   },
   "timezone": "",
-  "title": "PostgreSQL Database",
+  "title": "PostgreSQL advanced",
   "uid": "000000039",
   "version": 1
 }

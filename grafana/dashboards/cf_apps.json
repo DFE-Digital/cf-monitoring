@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "Cloud Foundry Overview",
+  "description": "Cloud Foundry app metrics from paas-prometheus-exporter",
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,

@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "Cloud Foundry Database Overview",
+  "description": "Cloud Foundry database metrics from paas-prometheus-exporter",
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
@@ -904,7 +904,7 @@
     ]
   },
   "timezone": "",
-  "title": "CF Databases",
+  "title": "CF databases",
   "uid": "a2FR6FUMz",
   "version": 15
 }
