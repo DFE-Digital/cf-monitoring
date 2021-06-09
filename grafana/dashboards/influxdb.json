@@ -1621,9 +1621,8 @@
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
-    "influxdb",
-    "internal",
-    "metrics"
+    "cloudfoundry",
+    "influxdb"
   ],
   "templating": {
     "list": [

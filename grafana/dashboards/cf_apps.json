@@ -756,7 +756,11 @@
   "refresh": "10s",
   "schemaVersion": 21,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "prometheus",
+    "cloudfoundry",
+    "app"
+  ],
   "templating": {
     "list": [
       {

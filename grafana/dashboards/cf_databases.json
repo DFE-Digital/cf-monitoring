@@ -816,7 +816,13 @@
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
-    "Postgres"
+    "prometheus",
+    "cloudfoundry",
+    "db",
+    "database",
+    "postgres",
+    "postgresql",
+    "mysql"
   ],
   "templating": {
     "list": [

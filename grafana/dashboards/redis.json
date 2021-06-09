@@ -1220,6 +1220,7 @@
   "style": "dark",
   "tags": [
     "prometheus",
+    "cloudfoundry",
     "redis"
   ],
   "templating": {
