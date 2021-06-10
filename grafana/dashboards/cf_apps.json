@@ -12,96 +12,63 @@
       }
     ]
   },
-  "description": "Cloud Foundry Database Overview",
+  "description": "Cloud Foundry app metrics from paas-prometheus-exporter",
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 10,
-  "iteration": 1615389783027,
+  "id": 1,
+  "iteration": 1611590381081,
   "links": [],
   "panels": [
     {
-      "cacheTimeout": null,
+      "activePatternIndex": 1,
       "datasource": "Prometheus",
+      "defaultPattern": {
+        "bgColors": "green|orange|red",
+        "bgColors_overrides": "0->green|2->red|1->yellow",
+        "clickable_cells_link": "",
+        "col_name": "_1_",
+        "decimals": "0",
+        "defaultBGColor": "transparent",
+        "defaultTextColor": "",
+        "delimiter": "|",
+        "displayTemplate": "_value_",
+        "enable_bgColor": false,
+        "enable_bgColor_overrides": false,
+        "enable_clickable_cells": false,
+        "enable_textColor": false,
+        "enable_textColor_overrides": false,
+        "enable_time_based_thresholds": false,
+        "enable_transform": false,
+        "enable_transform_overrides": false,
+        "filter": {
+          "value_above": "",
+          "value_below": ""
+        },
+        "format": "none",
+        "name": "Default Pattern",
+        "null_color": "darkred",
+        "null_textcolor": "black",
+        "null_value": "No data",
+        "pattern": "*",
+        "row_col_wrapper": "_",
+        "row_name": "_0_",
+        "textColors": "red|orange|green",
+        "textColors_overrides": "0->red|2->green|1->yellow",
+        "thresholds": "70,90",
+        "time_based_thresholds": [],
+        "tooltipTemplate": "Series : _series_ <br/>Row Name : _row_name_ <br/>Col Name : _col_name_ <br/>Value : _value_",
+        "transform_values": "_value_|_value_|_value_",
+        "transform_values_overrides": "0->down|1->up",
+        "valueName": "total"
+      },
+      "default_title_for_rows": "Metric",
       "fieldConfig": {
         "defaults": {
           "custom": {
             "align": null,
             "filterable": false
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 3,
-        "x": 0,
-        "y": 0
-      },
-      "id": 10,
-      "interval": null,
-      "links": [],
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "max"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value_and_name"
-      },
-      "pluginVersion": "7.2.2",
-      "targets": [
-        {
-          "expr": "swap_usage_bytes{ service=~ \"$Services\" }",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Swap",
-          "refId": "C"
-        },
-        {
-          "expr": "dbsize_byte{ service=~ \"$Services\" }",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Used",
-          "refId": "A"
-        },
-        {
-          "expr": "free_storage_space_bytes{ service=~ \"$Services\" }",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Free",
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Database Size",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": "Prometheus",
-      "description": "In concurrent systems where resources are locked, two or more processes can end up in a state in which each process is waiting for the other one. This state is called a deadlock. ",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -117,49 +84,383 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "app"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 198
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 146
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 3,
+        "h": 6,
+        "w": 13,
+        "x": 0,
         "y": 0
       },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
+      "id": 12,
+      "options": {},
+      "patterns": [
+        {
+          "bgColors": "green|orange|red",
+          "bgColors_overrides": "0->green|2->red|1->yellow",
+          "clickable_cells_link": "",
+          "col_name": "Instances",
+          "decimals": "0",
+          "defaultBGColor": "",
+          "defaultTextColor": "",
+          "delimiter": "|",
+          "displayTemplate": "_value_",
+          "enable_bgColor": false,
+          "enable_bgColor_overrides": false,
+          "enable_clickable_cells": false,
+          "enable_textColor": false,
+          "enable_textColor_overrides": false,
+          "enable_time_based_thresholds": false,
+          "enable_transform": false,
+          "enable_transform_overrides": false,
+          "filter": {
+            "value_above": "",
+            "value_below": ""
+          },
+          "format": "none",
+          "name": "NumberCPUS",
+          "null_color": "darkred",
+          "null_textcolor": "black",
+          "null_value": "No data",
+          "pattern": "CPU",
+          "row_col_wrapper": "_",
+          "row_name": "_0_",
+          "textColors": "red|orange|green",
+          "textColors_overrides": "0->red|2->green|1->yellow",
+          "thresholds": "70,90",
+          "time_based_thresholds": [],
+          "tooltipTemplate": "Series : _series_ <br/>Row Name : _row_name_ <br/>Col Name : _col_name_ <br/>Value : _value_",
+          "transform_values": "_value_|_value_|_value_",
+          "transform_values_overrides": "0->down|1->up",
+          "valueName": "current"
         },
-        "textMode": "auto"
-      },
+        {
+          "bgColors": "green|orange|red",
+          "bgColors_overrides": "0->green|2->red|1->yellow",
+          "clickable_cells_link": "",
+          "col_name": "Memory",
+          "decimals": 2,
+          "defaultBGColor": "",
+          "defaultTextColor": "",
+          "delimiter": "|",
+          "displayTemplate": "_value_",
+          "enable_bgColor": false,
+          "enable_bgColor_overrides": false,
+          "enable_clickable_cells": false,
+          "enable_textColor": false,
+          "enable_textColor_overrides": false,
+          "enable_time_based_thresholds": false,
+          "enable_transform": false,
+          "enable_transform_overrides": false,
+          "filter": {
+            "value_above": "",
+            "value_below": ""
+          },
+          "format": "decbytes",
+          "name": "MemUsage",
+          "null_color": "darkred",
+          "null_textcolor": "black",
+          "null_value": "No data",
+          "pattern": "MEM",
+          "row_col_wrapper": "_",
+          "row_name": "_0_",
+          "textColors": "red|orange|green",
+          "textColors_overrides": "0->red|2->green|1->yellow",
+          "thresholds": "70,90",
+          "time_based_thresholds": [],
+          "tooltipTemplate": "Series : _series_ <br/>Row Name : _row_name_ <br/>Col Name : _col_name_ <br/>Value : _value_",
+          "transform_values": "_value_|_value_|_value_",
+          "transform_values_overrides": "0->down|1->up",
+          "valueName": "current"
+        },
+        {
+          "bgColors": "green|orange|red",
+          "bgColors_overrides": "0->green|2->red|1->yellow",
+          "clickable_cells_link": "",
+          "col_name": "Disk Usage",
+          "decimals": "0",
+          "defaultBGColor": "",
+          "defaultTextColor": "",
+          "delimiter": "|",
+          "displayTemplate": "_value_",
+          "enable_bgColor": false,
+          "enable_bgColor_overrides": false,
+          "enable_clickable_cells": false,
+          "enable_textColor": false,
+          "enable_textColor_overrides": false,
+          "enable_time_based_thresholds": false,
+          "enable_transform": false,
+          "enable_transform_overrides": false,
+          "filter": {
+            "value_above": "",
+            "value_below": ""
+          },
+          "format": "decbytes",
+          "name": "DiskUsage",
+          "null_color": "darkred",
+          "null_textcolor": "black",
+          "null_value": "No data",
+          "pattern": "DISK",
+          "row_col_wrapper": "_",
+          "row_name": "_0_",
+          "textColors": "red|orange|green",
+          "textColors_overrides": "0->red|2->green|1->yellow",
+          "thresholds": "70,90",
+          "time_based_thresholds": [],
+          "tooltipTemplate": "Series : _series_ <br/>Row Name : _row_name_ <br/>Col Name : _col_name_ <br/>Value : _value_",
+          "transform_values": "_value_|_value_|_value_",
+          "transform_values_overrides": "0->down|1->up",
+          "valueName": "avg"
+        }
+      ],
       "pluginVersion": "7.2.2",
+      "row_col_wrapper": "_",
+      "sorting_props": {
+        "col_index": 1,
+        "direction": "asc"
+      },
       "targets": [
         {
-          "expr": "deadlocks{ service=~\"$Services\"}",
-          "hide": false,
+          "expr": "count by (app) ( cpu{app=~\"$Applications\" , space=\"$SpaceName\"})",
+          "format": "time_series",
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{service}}",
+          "legendFormat": "{{app}}|CPU",
           "refId": "A"
+        },
+        {
+          "expr": "sum by (app) ( memory_bytes{app=~\"$Applications\" , space=\"$SpaceName\"})",
+          "interval": "",
+          "legendFormat": "{{app}}|MEM",
+          "refId": "B"
+        },
+        {
+          "expr": "sum by ( app ) ( disk_bytes{ space=\"$SpaceName\" , app=~\"$Applications\" })",
+          "interval": "",
+          "legendFormat": "{{app}}|DISK",
+          "refId": "C"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Dead Locks",
-      "type": "stat"
+      "title": "Applications",
+      "type": "yesoreyeram-boomtable-panel"
     },
     {
-      "aliasColors": {
-        "Blocked": "red",
-        "Connected": "orange"
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 23,
+        "x": 0,
+        "y": 6
       },
+      "hiddenSeries": false,
+      "id": 14,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*failed requests/",
+          "color": "#C4162A"
+        },
+        {
+          "alias": "/.*total requests/",
+          "color": "#1F60C4"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\"}[5m])) by (app) *60",
+          "legendFormat": "{{app}} total requests",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"0xx|4xx|5xx\"}[5m])) by (app) *60",
+          "legendFormat": "{{app}} failed requests",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "HTTP requests",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 23,
+        "x": 0,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 16,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "avg(rate(response_time_sum{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app)",
+          "legendFormat": "{{app}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Response time (seconds)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -174,10 +475,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
-        "w": 17,
-        "x": 7,
-        "y": 0
+        "h": 7,
+        "w": 23,
+        "x": 0,
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 4,
@@ -194,7 +495,8 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "alertThreshold": true,
+        "dataLinks": []
       },
       "percentage": false,
       "pluginVersion": "7.2.2",
@@ -207,15 +509,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "connections{ service=\"$Services\" }",
+          "expr": "avg(cpu{space=\"$SpaceName\" , app=~\"$Applications\" }) by (app)",
           "interval": "",
-          "legendFormat": "Connected",
-          "refId": "B"
-        },
-        {
-          "expr": "blocked_connections{ service=\"$Services\" }",
-          "interval": "",
-          "legendFormat": "Blocked",
+          "legendFormat": "{{app}}",
           "refId": "A"
         }
       ],
@@ -223,7 +519,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Connections",
+      "title": "CPU Usage (%)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -239,126 +535,14 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:323",
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:324",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "USAGE": "purple"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "fill": 3,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 17,
-        "x": 7,
-        "y": 5
-      },
-      "hiddenSeries": false,
-      "id": 16,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "freeable_memory_bytes{service=\"$Services\"}",
-          "interval": "",
-          "legendFormat": "USAGE",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "$$hashKey": "object:338",
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "lt",
-          "value": 100000000,
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Available Free Memory",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:118",
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
+          "max": "100",
           "min": "0",
           "show": true
         },
         {
-          "$$hashKey": "object:119",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -375,42 +559,26 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "description": "Scans are how the database gathers data from its queries. What we want to see are index Scans in most cases, however table scans are acceptable but must not get out of control",
+      "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
-        "w": 7,
+        "h": 7,
+        "w": 23,
         "x": 0,
-        "y": 7
+        "y": 27
       },
       "hiddenSeries": false,
-      "id": 12,
-      "interval": "",
+      "id": 2,
       "legend": {
         "avg": false,
         "current": false,
@@ -422,10 +590,10 @@
       },
       "lines": true,
       "linewidth": 1,
-      "links": [],
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "alertThreshold": true,
+        "dataLinks": []
       },
       "percentage": false,
       "pluginVersion": "7.2.2",
@@ -438,131 +606,108 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate( idx_scan{ service=~\"$Services\"}[$__rate_interval])",
-          "format": "time_series",
-          "interval": "1m",
-          "legendFormat": "Index",
+          "expr": "avg(memory_utilization{space=\"$SpaceName\" , app=~\"$Applications\" }) by (app)",
+          "interval": "",
+          "legendFormat": "{{app}}",
           "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Memory Usage (%)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
         },
         {
-          "expr": "rate( seq_scan{ service=~\"$Services\"}[$__rate_interval])",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 23,
+        "x": 0,
+        "y": 34
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true,
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "7.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "avg by ( app ) ( disk_utilization{ space=\"$SpaceName\" , app=~\"$Applications\" })",
           "format": "time_series",
           "instant": false,
-          "interval": "1m",
-          "legendFormat": "Sequential",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Scans",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:209",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:210",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "% CPU ": "light-yellow"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 17,
-        "x": 7,
-        "y": 10
-      },
-      "hiddenSeries": false,
-      "id": 14,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "cpu_percent{ service=\"$Services\" }",
           "interval": "",
-          "legendFormat": "% CPU ",
+          "legendFormat": "{{app}} ",
           "refId": "A"
         }
       ],
@@ -570,7 +715,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "% CPU",
+      "title": "Disk Usage (%)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -586,218 +731,14 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:69",
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:70",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 7,
-        "x": 0,
-        "y": 13
-      },
-      "hiddenSeries": false,
-      "id": 8,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "rate( rollbacks{ service=~ \"$Services\"}[$__rate_interval])",
-          "interval": "1m",
-          "legendFormat": "{{service}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Rollbacks",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:552",
-          "decimals": 0,
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
+          "max": "100",
           "min": "0",
           "show": true
         },
         {
-          "$$hashKey": "object:553",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "description": "Input/output operations per second is an input/output performance, \nWrite isn't too bad as you want to write new data, but a lot of reads can indicate the database is scanning complete tables for information, which is slow",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 17,
-        "x": 7,
-        "y": 15
-      },
-      "hiddenSeries": false,
-      "id": 6,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "write_iops{ service=~\"$Services\"}",
-          "interval": "",
-          "legendFormat": "Write ",
-          "refId": "A"
-        },
-        {
-          "expr": "read_iops{ service=~\"$Services\"}",
-          "interval": "",
-          "legendFormat": "Read",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "IOPS",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:387",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:388",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -813,19 +754,21 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 21,
   "style": "dark",
   "tags": [
-    "Postgres"
+    "prometheus",
+    "cloudfoundry",
+    "app"
   ],
   "templating": {
     "list": [
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "get-into-teaching",
-          "value": "get-into-teaching"
+          "tags": [],
+          "text": "bat-prod",
+          "value": "bat-prod"
         },
         "datasource": "Prometheus",
         "definition": "label_values(space)",
@@ -850,18 +793,18 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "get-into-teaching-api-prod-pg-common-svc",
-          "value": "get-into-teaching-api-prod-pg-common-svc"
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(connections{space =~\"$SpaceName\"},service)",
+        "definition": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
         "hide": 0,
-        "includeAll": false,
-        "label": "Services",
+        "includeAll": true,
+        "label": "Applications",
         "multi": false,
-        "name": "Services",
+        "name": "Applications",
         "options": [],
-        "query": "label_values(connections{space =~\"$SpaceName\"},service)",
+        "query": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -904,7 +847,7 @@
     ]
   },
   "timezone": "",
-  "title": "CF Databases",
-  "uid": "a2FR6FUMz",
-  "version": 15
+  "title": "CF apps",
+  "uid": "eF19g4RZx",
+  "version": 1
 }
