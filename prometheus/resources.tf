@@ -9,7 +9,7 @@ resource "cloudfoundry_app" "prometheus" {
   space        = var.monitoring_space_id
   memory       = var.memory
   disk_quota   = var.disk_quota
-  command      = "echo \"$${PROM_CONFIG}\" > /etc/prometheus/prometheus.yml; echo \"$${ALERT_RULES}\" > /etc/prometheus/alert.rules; /bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.console.libraries=/usr/share/prometheus/console_libraries --web.console.templates=/usr/share/prometheus/consoles"
+  command      = "echo \"$${PROM_CONFIG}\" > /etc/prometheus/prometheus.yml; echo \"$${ALERT_RULES}\" > /etc/prometheus/alert.rules; ${local.default_command} --storage.tsdb.retention.time 1d"
   docker_image = "prom/prometheus:v2.27.1"
   environment = {
     PROM_CONFIG = local.config_file
