@@ -54,4 +54,14 @@ locals {
     internal_app_maps     = local.internal_app_maps
   }
   config_file = templatefile("${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
+
+  # From https://github.com/prometheus/prometheus/blob/main/Dockerfile
+  default_command_list = [
+    "/bin/prometheus",
+    "--storage.tsdb.path=/prometheus",
+    "--config.file=/etc/prometheus/prometheus.yml",
+    "--web.console.libraries=/usr/share/prometheus/console_libraries",
+    "--web.console.templates=/usr/share/prometheus/consoles"
+  ]
+  default_command = join(" ", local.default_command_list)
 }
