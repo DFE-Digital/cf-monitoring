@@ -60,6 +60,7 @@ module "alertmanager" {
   config                   = var.alertmanager_config
   slack_url                = var.alertmanager_slack_url
   slack_channel            = var.alertmanager_slack_channel
+  slack_template           = var.alertmanager_slack_template
 }
 
 module "grafana" {
