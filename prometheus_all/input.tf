@@ -8,6 +8,7 @@ variable "paas_exporter_password" {}
 variable "alertmanager_config" { default = "" }
 variable "alertmanager_slack_url" { default = "" }
 variable "alertmanager_slack_channel" { default = "" }
+variable "alertmanager_slack_template" { default = "" }
 variable "alert_rules" { default = "" }
 
 variable "grafana_google_client_id" { default = "" }
