@@ -16,7 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "iteration": 1626954058652,
+  "id": 5,
+  "iteration": 1627050702638,
   "links": [],
   "panels": [
     {
@@ -313,7 +314,6 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "$$hashKey": "object:106",
           "alias": "crash count",
           "color": "#E02F44"
         }
@@ -349,7 +349,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:66",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -358,7 +357,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:67",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -530,7 +528,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(rate(response_time_sum{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app)",
+          "expr": "sum(rate(response_time_sum{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app) / sum(rate(response_time_count{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app)",
+          "interval": "",
           "legendFormat": "{{app}}",
           "refId": "A"
         }
@@ -555,6 +554,7 @@
       },
       "yaxes": [
         {
+          "decimals": null,
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -882,11 +882,6 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "bat-prod",
-          "value": "bat-prod"
-        },
         "datasource": "Prometheus",
         "definition": "label_values(space)",
         "hide": 0,
@@ -908,11 +903,6 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        },
         "datasource": "Prometheus",
         "definition": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
         "hide": 0,
