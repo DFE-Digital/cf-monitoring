@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 10,
-  "iteration": 1615389783027,
+  "id": 9,
+  "iteration": 1626884001226,
   "links": [],
   "panels": [
     {
@@ -133,7 +133,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -174,7 +174,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 17,
         "x": 7,
         "y": 0
@@ -280,10 +280,10 @@
       "fill": 3,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 17,
         "x": 7,
-        "y": 5
+        "y": 6
       },
       "hiddenSeries": false,
       "id": 16,
@@ -319,17 +319,7 @@
           "refId": "A"
         }
       ],
-      "thresholds": [
-        {
-          "$$hashKey": "object:338",
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "lt",
-          "value": 100000000,
-          "yaxis": "left"
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -374,12 +364,14 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "breakPoint": "50%",
       "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
       "datasource": "Prometheus",
-      "description": "Scans are how the database gathers data from its queries. What we want to see are index Scans in most cases, however table scans are acceptable but must not get out of control",
+      "decimals": null,
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -400,101 +392,47 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
+      "fontSize": "80%",
+      "format": "decbytes",
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 0,
         "y": 7
       },
-      "hiddenSeries": false,
-      "id": 12,
-      "interval": "",
+      "id": 18,
+      "interval": null,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "header": "",
+        "percentage": false,
         "show": true,
-        "total": false,
-        "values": false
+        "values": true
       },
-      "lines": true,
-      "linewidth": 1,
+      "legendType": "Right side",
       "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
+      "nullPointMode": "connected",
+      "pieType": "pie",
       "pluginVersion": "7.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "strokeWidth": 1,
       "targets": [
         {
-          "expr": "rate( idx_scan{ service=~\"$Services\"}[$__rate_interval])",
-          "format": "time_series",
-          "interval": "1m",
-          "legendFormat": "Index",
+          "expr": "dbsize_byte{space=\"$SpaceName\", service=\"$Services\"}",
+          "interval": "",
+          "legendFormat": "Used",
           "refId": "A"
         },
         {
-          "expr": "rate( seq_scan{ service=~\"$Services\"}[$__rate_interval])",
-          "format": "time_series",
-          "instant": false,
-          "interval": "1m",
-          "legendFormat": "Sequential",
+          "expr": "free_storage_space_bytes{space=\"$SpaceName\", service=\"$Services\"}",
+          "interval": "",
+          "legendFormat": "Free",
           "refId": "B"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "Scans",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:209",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:210",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Database size",
+      "type": "grafana-piechart-panel",
+      "valueName": "current"
     },
     {
       "aliasColors": {
@@ -527,10 +465,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 17,
         "x": 7,
-        "y": 10
+        "y": 12
       },
       "hiddenSeries": false,
       "id": 14,
@@ -612,12 +550,28 @@
     {
       "aliasColors": {},
       "bars": false,
+      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Scans are how the database gathers data from its queries. What we want to see are index Scans in most cases, however table scans are acceptable but must not get out of control",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
@@ -630,18 +584,20 @@
         "y": 13
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": 12,
+      "interval": "",
       "legend": {
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 1,
+      "links": [],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -657,17 +613,26 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate( rollbacks{ service=~ \"$Services\"}[$__rate_interval])",
+          "expr": "rate( idx_scan{ service=~\"$Services\"}[$__rate_interval])",
+          "format": "time_series",
           "interval": "1m",
-          "legendFormat": "{{service}}",
+          "legendFormat": "Index",
           "refId": "A"
+        },
+        {
+          "expr": "rate( seq_scan{ service=~\"$Services\"}[$__rate_interval])",
+          "format": "time_series",
+          "instant": false,
+          "interval": "1m",
+          "legendFormat": "Sequential",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Rollbacks",
+      "title": "Scans/s",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -683,17 +648,16 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:552",
-          "decimals": 0,
+          "$$hashKey": "object:209",
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
-          "$$hashKey": "object:553",
+          "$$hashKey": "object:210",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -723,10 +687,10 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 17,
         "x": 7,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 6,
@@ -810,9 +774,107 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 0,
+        "y": 19
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate( rollbacks{ service=~ \"$Services\"}[$__rate_interval])*60",
+          "interval": "1m",
+          "legendFormat": "{{service}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Rollbacks/min",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:552",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:553",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
-  "refresh": "10s",
+  "refresh": "",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
@@ -828,11 +890,6 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "get-into-teaching",
-          "value": "get-into-teaching"
-        },
         "datasource": "Prometheus",
         "definition": "label_values(space)",
         "hide": 0,
@@ -854,11 +911,6 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "get-into-teaching-api-prod-pg-common-svc",
-          "value": "get-into-teaching-api-prod-pg-common-svc"
-        },
         "datasource": "Prometheus",
         "definition": "label_values(connections{space =~\"$SpaceName\"},service)",
         "hide": 0,
@@ -912,5 +964,5 @@
   "timezone": "",
   "title": "CF databases",
   "uid": "a2FR6FUMz",
-  "version": 15
+  "version": 1
 }
