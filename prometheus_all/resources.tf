@@ -22,6 +22,15 @@ module "postgres_prometheus_exporter" {
   postgres_service_instance = each.key
 }
 
+module "billing_prometheus_exporter" {
+  count                    = contains(var.enabled_modules, "billing_prometheus_exporter") ? 1 : 0
+  source                   = "../billing_prometheus_exporter"
+  monitoring_instance_name = var.monitoring_instance_name
+  monitoring_space_id      = data.cloudfoundry_space.monitoring.id
+  paas_username            = var.paas_exporter_username
+  paas_password            = var.paas_exporter_password
+}
+
 module "influxdb" {
   source = "../influxdb"
   count  = contains(var.enabled_modules, "influxdb") ? 1 : 0
@@ -41,7 +50,8 @@ module "prometheus" {
     local.list_of_redis_exporters,
     module.paas_prometheus_exporter.*.exporter,
     local.list_of_postgres_exporters,
-    local.list_of_external_exporters
+    local.list_of_external_exporters,
+    module.billing_prometheus_exporter.*.exporter
   )
   influxdb_service_instance_id = module.influxdb[0].service_instance_id
   alertmanager_endpoint        = contains(var.enabled_modules, "alertmanager") ? module.alertmanager[0].endpoint : ""

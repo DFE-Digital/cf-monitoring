@@ -46,7 +46,8 @@ variable "enabled_modules" {
     "prometheus",
     "grafana",
     "alertmanager",
-    "influxdb"
+    "influxdb",
+    "billing_prometheus_exporter"
   ]
 }
 
