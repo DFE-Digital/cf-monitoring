@@ -1,6 +1,3 @@
-global:
-  scrape_interval: 15s
-
 remote_read:
   - url: ${remote_read_url}
     read_recent: ${remote_read_recent}
@@ -18,12 +15,13 @@ scrape_configs:
   - job_name: ${exporter.name}
     scheme: ${exporter.scheme}
     honor_labels: ${exporter.honor_labels}
+    scrape_interval: ${exporter.scrape_interval}
     static_configs:
       - targets: [${exporter.endpoint}]
 %{ endfor ~}
-
 %{ for app in internal_app_maps ~}
   - job_name: ${ app.host }:${ app.port }
+    scrape_interval: ${default_scrape_interval}
     dns_sd_configs:
     - names:
       - ${app.host}
