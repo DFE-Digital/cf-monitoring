@@ -1,0 +1,446 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 8,
+  "iteration": 1628587966839,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyGBP"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.2.2",
+      "targets": [
+        {
+          "expr": "sum(cost{space=~\"$space\"})",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total cost [Yesterday]",
+      "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          },
+          "unit": "currencyGBP"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 15,
+        "x": 9,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "7.2.2",
+      "targets": [
+        {
+          "expr": "topk(5,sum(cost{space=~\"$space\", resource_type=~\"$resource_type\"}) by (space))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{space}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top spaces [Yesterday]",
+      "type": "bargauge"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "currencyGBP",
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      "id": 4,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "nullPointMode": "connected",
+      "pieType": "donut",
+      "pluginVersion": "7.2.2",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "expr": "sum(cost{space=~\"$space\", resource_type=~\"$resource_type\"}) by (space)",
+          "interval": "",
+          "legendFormat": "{{space}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cost by space [Yesterday]",
+      "type": "grafana-piechart-panel",
+      "valueName": "current"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "currencyGBP",
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      "id": 6,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "nullPointMode": "connected",
+      "pieType": "donut",
+      "pluginVersion": "7.2.2",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "expr": "sum(cost{space=~\"$space\"}) by (resource_type)",
+          "interval": "",
+          "legendFormat": "{{resource_type}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cost by resource type [Yesterday]",
+      "type": "grafana-piechart-panel",
+      "valueName": "current"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 9,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 15,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": false
+      },
+      "percentage": false,
+      "pluginVersion": "7.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(max_over_time(cost{space=~\"$space\", resource_type=~\"$resource_type\"}[1h])) by (space)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{space}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cost by space [Over time]",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "currencyGBP",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "1h",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(cost,space)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Space",
+        "multi": true,
+        "name": "space",
+        "options": [],
+        "query": "label_values(cost,space)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [],
+          "value": []
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(cost,resource_type)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Resource type",
+        "multi": true,
+        "name": "resource_type",
+        "options": [],
+        "query": "label_values(cost,resource_type)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "PaaS billing",
+  "uid": "tIw8h_G7z",
+  "version": 3
+}
