@@ -2,8 +2,8 @@
 
 Collection of [terraform](https://www.terraform.io/) modules to deploy the [prometheus](https://prometheus.io/) ecosystem to [Cloud foundry](https://www.cloudfoundry.org/).
 
-- Prometheus collects the metrics from Cloud foundry: applications, services, cpu, memory, etc
-- Specific prometheus exporters are deployed as paas applications to provide more prometheus metrics
+- Prometheus exporters are deployed as paas applications to provide prometheus metrics for paas applications and services, paas billing, redis, postgres...
+- Prometheus collects the metrics: applications, services, cpu, memory, cost, etc
 - Metrics are then persisted to [InfluxDB](https://www.influxdata.com/products/influxdb-overview/)
 - Metrics-based alerts can be created in prometheus and processed by [alertmanager](https://prometheus.io/docs/alerting/) to send to Slack, email, pagerduty, etc
 - Finally, the metrics are available in [grafana](https://grafana.com/) to build dashboards, help troubleshooting and create alerts.
@@ -13,8 +13,8 @@ The [prometheus_all module](#prometheus-all) is a good starting point as it incl
 ## Prerequisites
 
 - By default, the influxdb database service must be present (as it is on [GOV.UK PaaS](https://www.cloud.service.gov.uk/)). If not, another backend can be used and the influxdb module disabled.
-- The [paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter) requires a cf username and password to connect and read metrics. It is recommended to create a service account
-and set it up as `SpaceAuditor` on each monitored space.
+- The [paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter) requires a cf username and password to connect and read metrics.
+It is recommended to create a service account and set it up as `SpaceAuditor` on each monitored space as well as `BillingManager` on the whole organisation.
 - [Terraform](https://www.terraform.io/) (Tested with version 0.14)
 - [Terraform cloudfoundry provider](https://registry.terraform.io/providers/cloudfoundry-community/cloudfoundry/latest)
 
@@ -22,11 +22,7 @@ and set it up as `SpaceAuditor` on each monitored space.
 
 Wrapper module abstracting all the other modules. It should be sufficient for most use cases but underlying modules can also be used directly.
 
-It is possible to disable any included module to help onboarding to prometheus_all step-by-step.
-
-## How to use
-
-Example:
+## Minimal configuration
 
 ```hcl
 module prometheus_all {
@@ -37,20 +33,28 @@ module prometheus_all {
   monitoring_space_name    = "teaching-vacancies-monitoring"
   paas_exporter_username   = var.paas_exporter_username
   paas_exporter_password   = var.paas_exporter_password
-  alertmanager_config      = file("${path.module}/files/alertmanager.yml")
   grafana_admin_password   = var.grafana_admin_password
-  grafana_json_dashboards  = [
-    file("${path.module}/dashboards/frontend.json)",
-    file("${path.module}/dashboards/backend.json)"
-  ]
-  external_exporters      = ["www.my-external-service.org"]
-  internal_apps           = ["my-paas-app.cloudapps.digital"]
 }
 ```
 
+## Use a specific cf-monitoring version
 The git reference can be changed. For example for the `dev` branch:
 ```
 source = "git::https://github.com/DFE-Digital/cf-monitoring.git//prometheus_all?ref=dev"
+```
+
+## Enable specific modules
+It is possible to include modules selectively to help onboarding to prometheus_all step-by-step. See the list of modules in
+[enabled_modules](https://github.com/DFE-Digital/cf-monitoring/blob/master/prometheus_all/input.tf).
+
+```hcl
+module prometheus_all {
+  source = "git::https://github.com/DFE-Digital/cf-monitoring.git//prometheus_all"
+  enabled_modules          = ["prometheus", "influxdb"]
+  monitoring_instance_name = "teaching-vacancies"
+  monitoring_org_name      = "dfe"
+  monitoring_space_name    = "teaching-vacancies-monitoring"
+}
 ```
 
 ## Grafana
