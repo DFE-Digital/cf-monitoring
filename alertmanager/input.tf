@@ -7,6 +7,7 @@ variable "config" { default = "" }
 variable "slack_url" { default = "" }
 variable "slack_channel" { default = "" }
 locals {
+  docker_image_tag = "v0.22.2"
   alertmanager_variables = {
     slack_url     = var.slack_url
     slack_channel = var.slack_channel

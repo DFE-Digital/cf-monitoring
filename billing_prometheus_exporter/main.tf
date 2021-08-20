@@ -9,7 +9,7 @@ resource "cloudfoundry_app" "billing_exporter" {
   space        = var.monitoring_space_id
   memory       = "256"
   disk_quota   = "512"
-  docker_image = "ghcr.io/dfe-digital/paas-billing-exporter:main"
+  docker_image = "ghcr.io/dfe-digital/paas-billing-exporter:${local.docker_image_tag}"
   environment = {
     PAAS_USERNAME = var.paas_username
     PAAS_PASSWORD = var.paas_password

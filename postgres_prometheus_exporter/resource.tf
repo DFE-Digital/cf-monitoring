@@ -16,7 +16,7 @@ resource "cloudfoundry_service_key" "postgres-key" {
 resource "cloudfoundry_app" "postgres-exporter" {
   name         = "postgres-exporter-${data.cloudfoundry_service_instance.postgres_instance.name}"
   space        = var.monitoring_space_id
-  docker_image = "quay.io/prometheuscommunity/postgres-exporter"
+  docker_image = "quay.io/prometheuscommunity/postgres-exporter:${local.docker_image_tag}"
 
   routes {
     route = cloudfoundry_route.postgres_exporter.id
@@ -32,4 +32,3 @@ resource "cloudfoundry_route" "postgres_exporter" {
   domain   = data.cloudfoundry_domain.cloudapps.id
   hostname = data.cloudfoundry_service_instance.postgres_instance.name
 }
-

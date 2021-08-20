@@ -10,7 +10,7 @@ resource "cloudfoundry_app" "prometheus" {
   memory       = var.memory
   disk_quota   = var.disk_quota
   command      = "echo \"$${PROM_CONFIG}\" > /etc/prometheus/prometheus.yml; echo \"$${ALERT_RULES}\" > /etc/prometheus/alert.rules; ${local.default_command} --storage.tsdb.retention.time 1h"
-  docker_image = "prom/prometheus:v2.27.1"
+  docker_image = "prom/prometheus:${local.docker_image_tag}"
   environment = {
     PROM_CONFIG = local.config_file
     ALERT_RULES = var.alert_rules

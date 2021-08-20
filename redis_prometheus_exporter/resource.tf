@@ -20,7 +20,7 @@ locals {
 resource "cloudfoundry_app" "redis-exporter" {
   name         = "redis-exporter-${data.cloudfoundry_service_instance.redis_instance.name}"
   space        = var.monitoring_space_id
-  docker_image = "oliver006/redis_exporter:latest"
+  docker_image = "oliver006/redis_exporter:${local.docker_image_tag}"
 
   routes {
     route = cloudfoundry_route.redis_exporter.id
@@ -37,4 +37,3 @@ resource "cloudfoundry_route" "redis_exporter" {
   domain   = data.cloudfoundry_domain.cloudapps.id
   hostname = data.cloudfoundry_service_instance.redis_instance.name
 }
-

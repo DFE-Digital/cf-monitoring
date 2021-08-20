@@ -25,6 +25,7 @@ variable "alert_rules" { default = "" }
 variable "internal_apps" { default = [] }
 
 locals {
+  docker_image_tag        = "v2.29.1"
   app_name                = "prometheus-${var.monitoring_instance_name}"
   default_scrape_interval = "15s"
   exporters = [for exporter in var.exporters :

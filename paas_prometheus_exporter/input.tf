@@ -5,7 +5,7 @@ variable "paas_username" {}
 variable "paas_password" {}
 
 locals {
-  docker_image_tag = "ae92e64f45264d450626cb33802b3649b68562d4"
+  docker_image_tag = "f161a7c90250053964eb179c936dc587ffafc2f3"
   paas_api_url     = "https://api.london.cloud.service.gov.uk"
   environment_variable_map = {
     API_ENDPOINT = local.paas_api_url
