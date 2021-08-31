@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1628587966839,
+  "id": 6,
+  "iteration": 1630423197836,
   "links": [],
   "panels": [
     {
@@ -62,7 +62,8 @@
       "pluginVersion": "7.2.2",
       "targets": [
         {
-          "expr": "sum(cost{space=~\"$space\"})",
+          "expr": "sum(last_over_time(cost{space=~\"$space\"}[1d]))",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -92,10 +93,6 @@
               {
                 "color": "#EAB839",
                 "value": 100
-              },
-              {
-                "color": "red",
-                "value": 200
               }
             ]
           },
@@ -125,8 +122,9 @@
       "pluginVersion": "7.2.2",
       "targets": [
         {
-          "expr": "topk(5,sum(cost{space=~\"$space\", resource_type=~\"$resource_type\"}) by (space))",
+          "expr": "topk(5,sum(last_over_time(cost{space=~\"$space\", resource_type=~\"$resource_type\"}[1d])) by (space))",
           "hide": false,
+          "instant": true,
           "interval": "",
           "legendFormat": "{{space}}",
           "refId": "A"
@@ -164,6 +162,8 @@
       "interval": null,
       "legend": {
         "show": true,
+        "sort": null,
+        "sortDesc": null,
         "values": true
       },
       "legendType": "Right side",
@@ -174,7 +174,8 @@
       "strokeWidth": 1,
       "targets": [
         {
-          "expr": "sum(cost{space=~\"$space\", resource_type=~\"$resource_type\"}) by (space)",
+          "expr": "sort_desc(sum(last_over_time(cost{space=~\"$space\", resource_type=~\"$resource_type\"}[1d])) by (space))",
+          "instant": true,
           "interval": "",
           "legendFormat": "{{space}}",
           "refId": "A"
@@ -237,7 +238,8 @@
       "strokeWidth": 1,
       "targets": [
         {
-          "expr": "sum(cost{space=~\"$space\"}) by (resource_type)",
+          "expr": "sort_desc(sum(last_over_time(cost{space=~\"$space\"}[1d])) by (resource_type))",
+          "instant": true,
           "interval": "",
           "legendFormat": "{{resource_type}}",
           "refId": "A"
@@ -279,7 +281,7 @@
         },
         "overrides": []
       },
-      "fill": 9,
+      "fill": 10,
       "fillGradient": 0,
       "gridPos": {
         "h": 15,
@@ -297,12 +299,12 @@
         "max": false,
         "min": false,
         "rightSide": true,
-        "show": true,
+        "show": false,
         "total": false,
         "values": false
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 0,
       "links": [],
       "nullPointMode": "null",
       "options": {
@@ -315,11 +317,11 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(max_over_time(cost{space=~\"$space\", resource_type=~\"$resource_type\"}[1h])) by (space)",
+          "expr": "sum(last_over_time(cost{space=~\"$space\", resource_type=~\"$resource_type\"}[1d])) by (space)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{space}}",
@@ -330,10 +332,10 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Cost by space [Over time]",
+      "title": "Daily cost by space [Over time]",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -346,6 +348,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:97",
           "format": "currencyGBP",
           "label": null,
           "logBase": 1,
@@ -354,12 +357,13 @@
           "show": true
         },
         {
-          "format": "short",
+          "$$hashKey": "object:98",
+          "format": "day",
           "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -378,7 +382,6 @@
         "allValue": "",
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -408,10 +411,9 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
-          "tags": [],
-          "text": [],
-          "value": []
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Prometheus",
         "definition": "label_values(cost,resource_type)",
@@ -442,5 +444,5 @@
   "timezone": "",
   "title": "PaaS billing",
   "uid": "tIw8h_G7z",
-  "version": 3
+  "version": 1
 }
