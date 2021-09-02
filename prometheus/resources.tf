@@ -7,8 +7,8 @@ resource "cloudfoundry_route" "prometheus" {
 resource "cloudfoundry_app" "prometheus" {
   name         = local.app_name
   space        = var.monitoring_space_id
-  memory       = var.memory
-  disk_quota   = var.disk_quota
+  memory       = local.memory
+  disk_quota   = local.disk_quota
   command      = "echo \"$${PROM_CONFIG}\" > /etc/prometheus/prometheus.yml; echo \"$${ALERT_RULES}\" > /etc/prometheus/alert.rules; ${local.default_command} --storage.tsdb.retention.time 1h"
   docker_image = "prom/prometheus:${local.docker_image_tag}"
   environment = {

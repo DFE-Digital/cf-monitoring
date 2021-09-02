@@ -9,7 +9,7 @@ data "archive_file" "config" {
 
 
   source {
-    content  = templatefile("${path.module}/config/runtime.txt", { runtime_version = var.runtime_version })
+    content  = templatefile("${path.module}/config/runtime.txt", local.runtime_variables)
     filename = "runtime.txt"
   }
 
