@@ -66,7 +66,7 @@ variable "grafana_google_jwt" {
 }
 variable "grafana_runtime_version" {
   description = "Override default Grafana version. See Grafana module for current default version."
-  default     = null
+  default     = ""
 }
 
 variable "grafana_elasticsearch_credentials" {
@@ -82,11 +82,11 @@ variable "grafana_elasticsearch_credentials" {
 
 variable "prometheus_memory" {
   description = "Override default prometheus application allocated memory. See Prometheus module for current default value."
-  default     = null
+  default     = ""
 }
 variable "prometheus_disk_quota" {
   description = "Override default prometheus application allocated disk space. See Prometheus module for current default value."
-  default     = null
+  default     = ""
 }
 
 variable "influxdb_service_plan" {

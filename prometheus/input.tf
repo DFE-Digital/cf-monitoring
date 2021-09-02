@@ -14,9 +14,9 @@ variable "exporters" { default = [] }
 
 variable "alertmanager_endpoint" { default = "" }
 
-variable "memory" { default = 1024 }
+variable "memory" { default = "" }
 
-variable "disk_quota" { default = 1024 }
+variable "disk_quota" { default = "" }
 
 variable "influxdb_service_instance_id" {}
 
@@ -26,6 +26,10 @@ variable "internal_apps" { default = [] }
 
 locals {
   docker_image_tag        = "v2.29.1"
+  default_memory          = 1024
+  memory                  = var.memory != "" ? var.memory : local.default_memory
+  default_disk_quota      = 1024
+  disk_quota              = var.disk_quota != "" ? var.disk_quota : local.default_disk_quota
   app_name                = "prometheus-${var.monitoring_instance_name}"
   default_scrape_interval = "15s"
   exporters = [for exporter in var.exporters :

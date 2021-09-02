@@ -4,7 +4,7 @@ variable "monitoring_space_id" {}
 
 variable "prometheus_endpoint" {}
 
-variable "runtime_version" { default = "6.5.1" }
+variable "runtime_version" { default = "" }
 
 variable "google_client_id" { default = "" }
 variable "google_client_secret" { default = "" }
@@ -25,8 +25,9 @@ variable "json_dashboards" { default = [] }
 variable "extra_datasources" { default = [] }
 
 locals {
-  dashboard_list = fileset(path.module, "dashboards/*.json")
-  dashboards     = [for f in local.dashboard_list : file("${path.module}/${f}")]
+  default_runtime_version = "6.5.1"
+  dashboard_list          = fileset(path.module, "dashboards/*.json")
+  dashboards              = [for f in local.dashboard_list : file("${path.module}/${f}")]
   grafana_ini_variables = {
     google_client_id     = var.google_client_id
     google_client_secret = var.google_client_secret
@@ -45,4 +46,6 @@ locals {
     influxdb_username        = var.influxdb_credentials.username
     influxdb_password        = var.influxdb_credentials.password
   }
+  runtime_version   = var.runtime_version != "" ? var.runtime_version : local.default_runtime_version
+  runtime_variables = { runtime_version = local.runtime_version }
 }
