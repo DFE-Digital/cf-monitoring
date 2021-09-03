@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1630423197836,
+  "iteration": 1630587956071,
   "links": [],
   "panels": [
     {
@@ -62,7 +62,7 @@
       "pluginVersion": "7.2.2",
       "targets": [
         {
-          "expr": "sum(last_over_time(cost{space=~\"$space\"}[1d]))",
+          "expr": "sum(last_over_time(cost{space=~\"$space\", resource_type=~\"$resource_type\"}[1d]))",
           "instant": true,
           "interval": "",
           "legendFormat": "",
