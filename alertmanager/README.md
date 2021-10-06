@@ -39,8 +39,20 @@ module alertmanager {
     summary: Alert when any user hits a rate limit (excluding the /csp_reports endpoint).
     runbook: https://dfedigital.atlassian.net/wiki/spaces/GGIT/pages/2152497153/Rate+Limit
 ```
+### Alert Routes
+A route has been added which will ensure alerts are only sent to slack once every 24 hours. To implement this route you need to add the label ```period: daily```
 
-The severity should be one of high, medium or low
+```yaml
+- alert: TooManyRequests
+  expr: 'sum(increase(tta_requests_total{path!~"csp_reports",status=~"429"}[1m])) > 0'
+  labels:
+    severity: high
+    period: daily
+  annotations:
+    summary: Alert when any user hits a rate limit (excluding the /csp_reports endpoint).
+    runbook: https://dfedigital.atlassian.net/wiki/spaces/GGIT/pages/2152497153/Rate+Limit
+```
+
 
 ### Templates
 A default set of slack templates have been provided
