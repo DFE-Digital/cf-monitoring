@@ -11,6 +11,11 @@ remote_write:
       password: ${remote_write_password}
 
 scrape_configs:
+  - job_name: prometheus
+    scrape_interval: 1m
+    static_configs:
+      - targets: [localhost:9090]
+
 %{ for exporter in exporters ~}
   - job_name: ${exporter.name}
     scheme: ${exporter.scheme}
