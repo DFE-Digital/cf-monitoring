@@ -40,6 +40,18 @@ module "influxdb" {
   service_plan             = var.influxdb_service_plan
 }
 
+module "prometheus_readonly" {
+  source = "../prometheus"
+  count  = contains(var.enabled_modules, "prometheus") ? 1 : 0
+
+  monitoring_instance_name     = "readonly-${var.monitoring_instance_name}"
+  monitoring_space_id          = data.cloudfoundry_space.monitoring.id
+  influxdb_service_instance_id = module.influxdb[0].service_instance_id
+  memory                       = var.prometheus_memory
+  disk_quota                   = var.prometheus_disk_quota
+  readonly                     = true
+}
+
 module "prometheus" {
   source = "../prometheus"
   count  = contains(var.enabled_modules, "prometheus") ? 1 : 0
@@ -78,7 +90,7 @@ module "grafana" {
 
   monitoring_instance_name  = var.monitoring_instance_name
   monitoring_space_id       = data.cloudfoundry_space.monitoring.id
-  prometheus_endpoint       = module.prometheus[0].endpoint
+  prometheus_endpoint       = module.prometheus_readonly[0].endpoint
   google_client_id          = var.grafana_google_client_id
   google_client_secret      = var.grafana_google_client_secret
   google_jwt                = var.grafana_google_jwt
