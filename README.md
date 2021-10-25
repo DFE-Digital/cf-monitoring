@@ -22,6 +22,14 @@ It is recommended to create a service account and set it up as `SpaceAuditor` on
 
 Wrapper module abstracting all the other modules. It should be sufficient for most use cases but underlying modules can also be used directly.
 
+The prometheus all module will create two instances of the Prometheus application, by doing this we can prevent large queries from impacting the metric collection process.
+
+### Scraper
+The scraper version of the Prometheus application has the configuration required to collect metrics from their given locations and raise alerts sending them to the [alertmanager](alertmanager/README.md).
+
+### Read Only
+The ReadOnly version of the Prometheus application is used by [Grafana](grafana/README.md) as a data source.
+ 
 ## Minimal configuration
 
 ```hcl
