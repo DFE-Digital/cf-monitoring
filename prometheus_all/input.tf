@@ -30,7 +30,7 @@ variable "alertmanager_slack_channel" {
   description = "Slack channel for alert notifications"
   default     = ""
 }
-variable "alertmanager_slack_tempate" {
+variable "alertmanager_slack_template" {
   description = "Slack message template for alert notifications"
   default     = ""
 }
