@@ -5,16 +5,34 @@ global:
 %{ endif ~}
 
 route:
- receiver: 'slack-notifications'
- group_interval: 1m
- repeat_interval: 1h
- group_by: [period]
- routes:
+  receiver: 'slack-notifications'
+  group_interval: 1m
+  repeat_interval: 1h
+  group_by: [period]
+  routes:
   - receiver: 'slack-notifications'
     group_interval: 24h
     repeat_interval: 24h
     matchers:
     - period="daily"
+  - receiver: 'slack-notifications'
+    group_interval: 1m
+    repeat_interval: 1h
+    mute_time_intervals:
+    - out-of-hours
+    matchers: [period = 'out-of-hours']
+
+mute_time_intervals:
+- name: out-of-hours
+  time_intervals:
+  - weekdays:
+    - monday
+    - sunday
+    times:
+    - start_time: '17:00'
+      end_time: '24:00'
+    - start_time: '00:00'
+      end_time: '08:00'
 
 templates:
   - './slack.tmpl'
