@@ -30,6 +30,10 @@ variable "alertmanager_slack_channel" {
   description = "Slack channel for alert notifications"
   default     = ""
 }
+variable "alertmanager_slack_tempate" {
+  description = "Slack message template for alert notifications"
+  default     = ""
+}
 variable "alert_rules" {
   description = "Prometheus alert rules file (https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/). Passed as a long string."
   default     = ""
