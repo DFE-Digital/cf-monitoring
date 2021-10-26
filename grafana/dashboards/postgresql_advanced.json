@@ -3336,7 +3336,7 @@
         "multi": true,
         "name": "datname",
         "options": [],
-        "query": "label_values(datname)",
+        "query": "label_values(pg_stat_activity_count,datname)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
