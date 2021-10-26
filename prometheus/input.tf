@@ -24,6 +24,8 @@ variable "alert_rules" { default = "" }
 
 variable "internal_apps" { default = [] }
 
+variable "readonly" { default = false }
+
 locals {
   docker_image_tag        = "v2.29.1"
   default_memory          = 1024
@@ -62,7 +64,7 @@ locals {
     internal_app_maps       = local.internal_app_maps
     default_scrape_interval = local.default_scrape_interval
   }
-  config_file = templatefile("${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
+  config_file = templatefile(var.readonly == true ? "${path.module}/templates/readonly.yml.tmpl" : "${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
 
   # From https://github.com/prometheus/prometheus/blob/main/Dockerfile
   default_command_list = [
