@@ -74,5 +74,9 @@ locals {
     "--web.console.libraries=/usr/share/prometheus/console_libraries",
     "--web.console.templates=/usr/share/prometheus/consoles"
   ]
-  default_command = join(" ", local.default_command_list)
+  extra_command_list = [
+    "--storage.tsdb.retention.time 12h",
+    "--storage.tsdb.retention.size 1GB"
+  ]
+  command = join(" ", concat(local.default_command_list, local.extra_command_list))
 }
