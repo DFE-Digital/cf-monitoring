@@ -27,7 +27,7 @@ variable "internal_apps" { default = [] }
 variable "readonly" { default = false }
 
 locals {
-  docker_image_tag        = "v2.29.1"
+  docker_image_tag        = "v2.31.1"
   default_memory          = 1024
   memory                  = var.memory != "" ? var.memory : local.default_memory
   default_disk_quota      = 1024
