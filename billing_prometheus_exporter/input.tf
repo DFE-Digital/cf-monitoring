@@ -4,5 +4,5 @@ variable "paas_username" {}
 variable "paas_password" {}
 
 locals {
-  docker_image_tag = "v0.0.2"
+  docker_image_tag = "v0.0.3"
 }
