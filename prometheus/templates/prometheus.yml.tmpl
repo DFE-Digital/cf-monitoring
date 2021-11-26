@@ -23,6 +23,9 @@ scrape_configs:
     scrape_interval: ${exporter.scrape_interval}
     static_configs:
       - targets: [${exporter.endpoint}]
+    metric_relabel_configs:
+      - regex: guid
+        action: labeldrop
 %{ endfor ~}
 %{ for app in internal_app_maps ~}
   - job_name: ${ app.host }:${ app.port }
