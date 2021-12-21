@@ -10,6 +10,10 @@ Collection of [terraform](https://www.terraform.io/) modules to deploy the [prom
 
 The [prometheus_all module](#prometheus-all) is a good starting point as it includes all the other modules.
 
+## Source
+
+[github.com/DFE-Digital/cf-monitoring](https://github.com/DFE-Digital/cf-monitoring)
+
 ## Prerequisites
 
 - By default, the influxdb database service must be present (as it is on [GOV.UK PaaS](https://www.cloud.service.gov.uk/)). If not, another backend can be used and the influxdb module disabled.
