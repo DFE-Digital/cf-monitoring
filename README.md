@@ -33,7 +33,7 @@ The scraper version of the Prometheus application has the configuration required
 
 ### Read Only
 The ReadOnly version of the Prometheus application is used by [Grafana](grafana/README.md) as a data source.
- 
+
 ## Minimal configuration
 
 ```hcl
@@ -115,6 +115,9 @@ If the port is not specified, the default Cloud Foundry port will be used (8080)
 
 [Internal routing](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#internal-routes) must be configured so that prometheus can access them.
 `prometheus_all` outputs both prometheus app name and id to help create the network policy.
+
+**Note:** To allow useful aggregation and optimise time series storage, the applications should decorate the metrics with a label called `app_instance`
+representing the id of the Cloud Foundry app instance. It can be obtained at runtime from the `CF_INSTANCE_INDEX` environment variable.
 
 ## alertmanager
 A default configuration is provided but it doesn't send any notification. You can configure slack to publish to a webhook or provide your own configuration.
