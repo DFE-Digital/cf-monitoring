@@ -35,6 +35,13 @@ scrape_configs:
       - ${app.host}
       type: 'A'
       port: ${app.port}
+    metric_relabel_configs:
+      - source_labels: [app_instance]
+        regex: app_instance
+        target_label: instance
+        action: replace
+      - regex: app_instance
+        action: labeldrop
 %{ endfor ~}
 
 %{ if include_alerting }
