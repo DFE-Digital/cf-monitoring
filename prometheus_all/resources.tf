@@ -6,6 +6,7 @@ module "paas_prometheus_exporter" {
   monitoring_space_id      = data.cloudfoundry_space.monitoring.id
   paas_username            = var.paas_exporter_username
   paas_password            = var.paas_exporter_password
+  docker_credentials       = var.docker_credentials
 }
 
 module "redis_prometheus_exporter" {
@@ -13,6 +14,7 @@ module "redis_prometheus_exporter" {
   for_each               = toset(var.redis_services)
   monitoring_space_id    = data.cloudfoundry_space.monitoring.id
   redis_service_instance = each.key
+  docker_credentials     = var.docker_credentials
 }
 
 module "postgres_prometheus_exporter" {
@@ -29,6 +31,7 @@ module "billing_prometheus_exporter" {
   monitoring_space_id      = data.cloudfoundry_space.monitoring.id
   paas_username            = var.paas_exporter_username
   paas_password            = var.paas_exporter_password
+  docker_credentials       = var.docker_credentials
 }
 
 module "influxdb" {
@@ -50,6 +53,7 @@ module "prometheus_readonly" {
   memory                       = var.prometheus_memory
   disk_quota                   = var.prometheus_disk_quota
   readonly                     = true
+  docker_credentials           = var.docker_credentials
 }
 
 module "prometheus" {
@@ -71,6 +75,7 @@ module "prometheus" {
   memory                       = var.prometheus_memory
   disk_quota                   = var.prometheus_disk_quota
   internal_apps                = var.internal_apps
+  docker_credentials           = var.docker_credentials
 }
 
 module "alertmanager" {
@@ -83,6 +88,7 @@ module "alertmanager" {
   slack_url                = var.alertmanager_slack_url
   slack_channel            = var.alertmanager_slack_channel
   slack_template           = var.alertmanager_slack_template
+  docker_credentials       = var.docker_credentials
 }
 
 module "grafana" {

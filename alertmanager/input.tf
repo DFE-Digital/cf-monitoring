@@ -7,6 +7,14 @@ variable "config" { default = "" }
 variable "slack_url" { default = "" }
 variable "slack_channel" { default = "" }
 variable "slack_template" { default = "" }
+variable "docker_credentials" {
+  description = "Credentials for Dockerhub. Map of {username, password}."
+  type        = map(any)
+  default = {
+    username = ""
+    password = ""
+  }
+}
 locals {
   docker_image_tag = "v0.22.2"
   alertmanager_variables = {

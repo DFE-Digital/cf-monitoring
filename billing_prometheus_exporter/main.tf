@@ -5,11 +5,13 @@ resource "cloudfoundry_route" "billing_exporter" {
 }
 
 resource "cloudfoundry_app" "billing_exporter" {
-  name         = "billing-exporter-${var.monitoring_instance_name}"
-  space        = var.monitoring_space_id
-  memory       = "256"
-  disk_quota   = "512"
-  docker_image = "ghcr.io/dfe-digital/paas-billing-exporter:${local.docker_image_tag}"
+  name               = "billing-exporter-${var.monitoring_instance_name}"
+  space              = var.monitoring_space_id
+  memory             = "256"
+  disk_quota         = "512"
+  docker_image       = "ghcr.io/dfe-digital/paas-billing-exporter:${local.docker_image_tag}"
+  docker_credentials = var.docker_credentials
+
   environment = {
     PAAS_USERNAME = var.paas_username
     PAAS_PASSWORD = var.paas_password

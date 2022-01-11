@@ -84,6 +84,14 @@ variable "grafana_elasticsearch_credentials" {
   }
 }
 
+variable "docker_credentials" {
+  description = "Credentials for Dockerhub. Map of {username, password}."
+  type        = map(any)
+  default = {
+    username = ""
+    password = ""
+  }
+}
 variable "prometheus_memory" {
   description = "Override default prometheus application allocated memory. See Prometheus module for current default value."
   default     = ""
