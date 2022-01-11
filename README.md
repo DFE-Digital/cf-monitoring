@@ -123,3 +123,16 @@ representing the id of the Cloud Foundry app instance. It can be obtained at run
 A default configuration is provided but it doesn't send any notification. You can configure slack to publish to a webhook or provide your own configuration.
 
 See [alertmanager README](alertmanager/README.md)
+
+## Dockerhub pull rate limit
+
+Deploying apps that depends on Dockerhub image pull can result in failure because of error **You have reached your pull rate limit** if not authenticated to Dockerhub.
+
+Dockerhub credentials can be passed into the modules as follows:
+
+```
+docker_credentials = {
+
+  username = ""
+  password = ""
+}
