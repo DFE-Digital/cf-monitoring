@@ -25,6 +25,14 @@ variable "alert_rules" { default = "" }
 variable "internal_apps" { default = [] }
 
 variable "readonly" { default = false }
+variable "docker_credentials" {
+  description = "Credentials for Dockerhub. Map of {username, password}."
+  type        = map(any)
+  default = {
+    username = ""
+    password = ""
+  }
+}
 
 locals {
   docker_image_tag        = "v2.31.1"
