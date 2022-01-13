@@ -37,6 +37,7 @@ scrape_configs:
       port: ${app.port}
     metric_relabel_configs:
       - source_labels: [app_instance]
+        regex: (.+)
         target_label: instance
         action: replace
       - regex: app_instance
