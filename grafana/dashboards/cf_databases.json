@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 9,
-  "iteration": 1626884001226,
+  "id": 3,
+  "iteration": 1642422384425,
   "links": [],
   "panels": [
     {
@@ -25,10 +25,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -64,9 +60,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "value_and_name"
       },
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "targets": [
         {
           "expr": "swap_usage_bytes{ service=~ \"$Services\" }",
@@ -101,7 +98,6 @@
       "description": "In concurrent systems where resources are locked, two or more processes can end up in a state in which each process is waiting for the other one. This state is called a deadlock. ",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -138,9 +134,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "targets": [
         {
           "expr": "deadlocks{ service=~\"$Services\"}",
@@ -166,9 +163,7 @@
       "datasource": "Prometheus",
       "description": "",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -197,7 +192,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -239,7 +234,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:323",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -248,7 +242,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:324",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -272,7 +265,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "decbytes"
         },
         "overrides": []
@@ -303,7 +295,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -339,7 +331,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:118",
           "format": "decbytes",
           "label": null,
           "logBase": 1,
@@ -348,7 +339,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:119",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -373,23 +363,7 @@
       "datasource": "Prometheus",
       "decimals": null,
       "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
+        "defaults": {},
         "overrides": []
       },
       "fontSize": "80%",
@@ -443,23 +417,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -488,7 +446,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -524,7 +482,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:69",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -533,7 +490,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:70",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -556,23 +512,7 @@
       "datasource": "Prometheus",
       "description": "Scans are how the database gathers data from its queries. What we want to see are index Scans in most cases, however table scans are acceptable but must not get out of control",
       "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -603,7 +543,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -648,7 +588,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:209",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -657,7 +596,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:210",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -679,9 +617,7 @@
       "datasource": "Prometheus",
       "description": "Input/output operations per second is an input/output performance, \nWrite isn't too bad as you want to write new data, but a lot of reads can indicate the database is scanning complete tables for information, which is slow",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 0,
@@ -710,7 +646,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -752,7 +688,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:387",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -761,7 +696,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:388",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -782,9 +716,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -813,7 +745,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -849,7 +781,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:552",
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -859,7 +790,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:553",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -874,8 +804,8 @@
       }
     }
   ],
-  "refresh": "",
-  "schemaVersion": 26,
+  "refresh": "1m",
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [
     "prometheus",
@@ -890,15 +820,25 @@
     "list": [
       {
         "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "bat-prod",
+          "value": "bat-prod"
+        },
         "datasource": "Prometheus",
         "definition": "label_values(cpu,space)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "SpaceName",
         "multi": false,
         "name": "SpaceName",
         "options": [],
-        "query": "label_values(cpu,space)",
+        "query": {
+          "query": "label_values(cpu,space)",
+          "refId": "Prometheus-SpaceName-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -911,15 +851,25 @@
       },
       {
         "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "apply-postgres-prod",
+          "value": "apply-postgres-prod"
+        },
         "datasource": "Prometheus",
         "definition": "label_values(connections{space =~\"$SpaceName\"},service)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Services",
         "multi": false,
         "name": "Services",
         "options": [],
-        "query": "label_values(connections{space =~\"$SpaceName\"},service)",
+        "query": {
+          "query": "label_values(connections{space =~\"$SpaceName\"},service)",
+          "refId": "Prometheus-Services-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
