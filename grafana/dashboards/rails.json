@@ -18,8 +18,8 @@
   "editable": true,
   "gnetId": 11668,
   "graphTooltip": 2,
-  "id": 6,
-  "iteration": 1623688275053,
+  "id": 8,
+  "iteration": 1642423760466,
   "links": [],
   "panels": [
     {
@@ -30,9 +30,7 @@
       "datasource": "Prometheus",
       "description": "Thread Pool",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -65,7 +63,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -140,7 +138,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -179,9 +176,10 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true
+        "showUnfilled": true,
+        "text": {}
       },
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "targets": [
         {
           "expr": "1-puma_pool_capacity{app=\"$Application\"}/puma_max_threads{app=\"$Application\"}",
@@ -206,23 +204,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -251,7 +233,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -314,7 +296,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -347,9 +328,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "repeat": null,
       "targets": [
         {
@@ -384,7 +366,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -424,7 +405,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -496,22 +477,7 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "links": []
         },
         "overrides": []
       },
@@ -550,7 +516,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -617,7 +583,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": [],
           "unit": "ms"
         },
@@ -654,7 +619,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -733,7 +698,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 26,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -747,13 +712,18 @@
         },
         "datasource": "Prometheus",
         "definition": "label_values(rails_requests_total,app)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Application",
         "multi": true,
         "name": "Application",
         "options": [],
-        "query": "label_values(rails_requests_total,app)",
+        "query": {
+          "query": "label_values(rails_requests_total,app)",
+          "refId": "Prometheus-Application-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -798,5 +768,5 @@
   "timezone": "",
   "title": "Rails",
   "uid": "c4a3e16",
-  "version": 36
+  "version": 1
 }
