@@ -3,7 +3,8 @@
 Collection of [terraform](https://www.terraform.io/) modules to deploy the [prometheus](https://prometheus.io/) ecosystem to [Cloud foundry](https://www.cloudfoundry.org/).
 
 - Prometheus exporters are deployed as paas applications to provide prometheus metrics for paas applications and services, paas billing, redis, postgres...
-- Prometheus collects the metrics: applications, services, cpu, memory, cost, etc
+- Internal applications metrics can be exposed too
+- Prometheus collects the metrics: applications, databases, cpu, memory, cost, custom metrics, etc.
 - Metrics are then persisted to [InfluxDB](https://www.influxdata.com/products/influxdb-overview/)
 - Metrics-based alerts can be created in prometheus and processed by [alertmanager](https://prometheus.io/docs/alerting/) to send to Slack, email, pagerduty, etc
 - Finally, the metrics are available in [grafana](https://grafana.com/) to build dashboards, help troubleshooting and create alerts.
@@ -26,13 +27,10 @@ It is recommended to create a service account and set it up as `SpaceAuditor` on
 
 Wrapper module abstracting all the other modules. It should be sufficient for most use cases but underlying modules can also be used directly.
 
-The prometheus all module will create two instances of the Prometheus application, by doing this we can prevent large queries from impacting the metric collection process.
+The `prometheus_all` module creates two instances of the Prometheus application:
 
-### Scraper
-The scraper version of the Prometheus application has the configuration required to collect metrics from their given locations and raise alerts sending them to the [alertmanager](alertmanager/README.md).
-
-### Read Only
-The ReadOnly version of the Prometheus application is used by [Grafana](grafana/README.md) as a data source.
+- Scraper: it has the configuration required to collect metrics from their given locations and raise alerts sending them to the [alertmanager](alertmanager/README.md)
+- Read Only: used by [Grafana](grafana/README.md) as a data source and prevents large queries from impacting the metric collection process of the scraper
 
 ## Minimal configuration
 
@@ -105,6 +103,7 @@ List of external endpoints which can be queried via `/metrics`. Can be used for 
 They must be accessible via https.
 
 ## Internal apps
+### Configuration
 Pass a list of applications deployed to Cloud Foundry and prometheus will find each individual instance and scrape metrics from them. The format is:
 
 ```
@@ -116,9 +115,27 @@ If the port is not specified, the default Cloud Foundry port will be used (8080)
 [Internal routing](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#internal-routes) must be configured so that prometheus can access them.
 `prometheus_all` outputs both prometheus app name and id to help create the network policy.
 
-**Note:** To allow useful aggregation and optimise time series storage, the applications should decorate the metrics with a label called `app_instance`
+### Important
+To allow useful aggregation and optimise time series storage, the applications should decorate the metrics with a label called `app_instance`
 representing the id of the Cloud Foundry app instance. It can be obtained at runtime from the `CF_INSTANCE_INDEX` environment variable.
 
+### Yabeda
+For ruby applications, the [yabeda](https://github.com/yabeda-rb/yabeda) is a powerful framework to expose custom metrics and provides a lot of metrics out of the box such as [yabeda-rails](https://github.com/yabeda-rb/yabeda-rails) and [yabeda-sidekiq](https://github.com/yabeda-rb/yabeda-sidekiq).
+
+It is recommended to decorate the yabeda metrics as such:
+
+```ruby
+if ENV.key?('VCAP_APPLICATION')
+  vcap_config = JSON.parse(ENV['VCAP_APPLICATION'])
+
+  Yabeda.configure do
+    default_tag :app, vcap_config['name']
+    default_tag :app_instance, ENV['CF_INSTANCE_INDEX']
+    default_tag :organisation, vcap_config['organization_name']
+    default_tag :space, vcap_config['space_name']
+  end
+end
+```
 ## alertmanager
 A default configuration is provided but it doesn't send any notification. You can configure slack to publish to a webhook or provide your own configuration.
 
@@ -132,7 +149,6 @@ Dockerhub credentials can be passed into the modules as follows:
 
 ```
 docker_credentials = {
-
-  username = ""
-  password = ""
+  username = var.dockerhub_username
+  password = var.dockerhub_password
 }

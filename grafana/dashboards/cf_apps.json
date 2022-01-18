@@ -17,12 +17,131 @@
   "gnetId": 10063,
   "graphTooltip": 0,
   "id": 5,
-  "iteration": 1627050702638,
+  "iteration": 1642435504765,
   "links": [],
   "panels": [
     {
-      "activePatternIndex": 1,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.11",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "count(count(cpu{space=\"$SpaceName\"}) by (app))",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total apps",
+      "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.11",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "count(count(cpu{space=\"$SpaceName\"}) by (app, instance))",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total instances",
+      "type": "stat"
+    },
+    {
+      "activePatternIndex": 0,
+      "datasource": "Prometheus",
+      "debug_mode": false,
       "defaultPattern": {
         "bgColors": "green|orange|red",
         "bgColors_overrides": "0->green|2->red|1->yellow",
@@ -64,57 +183,13 @@
       },
       "default_title_for_rows": "Metric",
       "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "app"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 198
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 146
-              }
-            ]
-          }
-        ]
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
-        "w": 13,
-        "x": 0,
+        "w": 9,
+        "x": 6,
         "y": 0
       },
       "id": 12,
@@ -241,7 +316,7 @@
       "row_col_wrapper": "_",
       "sorting_props": {
         "col_index": 1,
-        "direction": "asc"
+        "direction": "desc"
       },
       "targets": [
         {
@@ -254,12 +329,14 @@
         },
         {
           "expr": "sum by (app) ( memory_bytes{app=~\"$Applications\" , space=\"$SpaceName\"})",
+          "hide": false,
           "interval": "",
           "legendFormat": "{{app}}|MEM",
           "refId": "B"
         },
         {
           "expr": "sum by ( app ) ( disk_bytes{ space=\"$SpaceName\" , app=~\"$Applications\" })",
+          "hide": false,
           "interval": "",
           "legendFormat": "{{app}}|DISK",
           "refId": "C"
@@ -272,22 +349,20 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 10,
-        "x": 13,
+        "w": 8,
+        "x": 15,
         "y": 0
       },
       "hiddenSeries": false,
@@ -301,14 +376,14 @@
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "alertThreshold": false
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -353,7 +428,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -362,7 +437,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -378,7 +453,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -409,7 +483,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -428,12 +502,16 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\"}[5m])) by (app) *60",
+          "exemplar": true,
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app) *60",
+          "interval": "",
           "legendFormat": "{{app}} total requests",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"0xx|4xx|5xx\"}[5m])) by (app) *60",
+          "exemplar": true,
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"0xx|4xx|5xx\"}[1m])) by (app) *60",
+          "interval": "",
           "legendFormat": "{{app}} failed requests",
           "refId": "B"
         }
@@ -462,16 +540,16 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -487,7 +565,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -518,7 +595,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -559,7 +636,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -568,7 +645,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -585,7 +662,7 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -612,11 +689,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -665,7 +741,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -682,7 +758,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": [],
+          "unit": "short"
         },
         "overrides": []
       },
@@ -709,11 +786,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -752,8 +828,8 @@
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "100",
+          "min": "0",
           "show": true
         },
         {
@@ -762,7 +838,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -778,7 +854,7 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -806,11 +882,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.5.11",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -861,7 +936,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -871,7 +946,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [
     "prometheus",
@@ -882,15 +957,25 @@
     "list": [
       {
         "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "bat-prod",
+          "value": "bat-prod"
+        },
         "datasource": "Prometheus",
         "definition": "label_values(cpu,space)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "SpaceName",
         "multi": false,
         "name": "SpaceName",
         "options": [],
-        "query": "label_values(cpu,space)",
+        "query": {
+          "query": "label_values(cpu,space)",
+          "refId": "Prometheus-SpaceName-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -903,15 +988,25 @@
       },
       {
         "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "Prometheus",
         "definition": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Applications",
         "multi": false,
         "name": "Applications",
         "options": [],
-        "query": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
+        "query": {
+          "query": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
+          "refId": "Prometheus-Applications-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

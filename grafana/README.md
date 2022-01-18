@@ -60,7 +60,7 @@ Ste-by-step:
 That should be enough to configure Google.  You will be given a client_id and a client_secret which you will need to use in Grafana. These two fields can be read again if you return to the screen.
 
 ### Runtime version
-The default version is 6.5.1. It has been tested successfully with version 7.
+The default version is 7. It has been tested successfully with version 6, 7 and 8.
 
 ### Example Usage
 ```
