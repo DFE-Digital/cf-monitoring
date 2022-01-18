@@ -18,8 +18,8 @@
   "editable": true,
   "gnetId": 11668,
   "graphTooltip": 2,
-  "id": 8,
-  "iteration": 1642423760466,
+  "id": 5,
+  "iteration": 1642514327746,
   "links": [],
   "panels": [
     {
@@ -697,7 +697,7 @@
       }
     }
   ],
-  "refresh": "",
+  "refresh": "10s",
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
@@ -707,8 +707,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "apply-qa",
-          "value": "apply-qa"
+          "text": "apply-prod",
+          "value": "apply-prod"
         },
         "datasource": "Prometheus",
         "definition": "label_values(rails_requests_total,app)",
