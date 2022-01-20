@@ -25,7 +25,7 @@ variable "json_dashboards" { default = [] }
 variable "extra_datasources" { default = [] }
 
 locals {
-  default_runtime_version = "7.5.12"
+  default_runtime_version = "8.3.4"
   dashboard_list          = fileset(path.module, "dashboards/*.json")
   dashboards              = [for f in local.dashboard_list : file("${path.module}/${f}")]
   grafana_ini_variables = {
