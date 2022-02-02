@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1642435504765,
+  "id": 3,
+  "iteration": 1643791930670,
   "links": [],
   "panels": [
     {
@@ -62,7 +62,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "targets": [
         {
           "exemplar": true,
@@ -121,7 +121,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "targets": [
         {
           "exemplar": true,
@@ -383,7 +383,7 @@
         "alertThreshold": false
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -483,7 +483,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -595,7 +595,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -615,7 +615,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Response time (seconds)",
+      "title": "Response time (mean seconds per minute)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -631,6 +631,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:246",
           "decimals": null,
           "format": "short",
           "label": null,
@@ -640,6 +641,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:247",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -652,6 +654,61 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 23,
+        "x": 0,
+        "y": 20
+      },
+      "id": 24,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.12",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(response_time_bucket{space=\"$SpaceName\", app=~\"$Applications\"}) by (le)",
+          "format": "heatmap",
+          "interval": "",
+          "legendFormat": "{{le}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Response Time (count responses by second)",
+      "type": "bargauge"
     },
     {
       "aliasColors": {},
@@ -672,7 +729,7 @@
         "h": 7,
         "w": 23,
         "x": 0,
-        "y": 20
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 4,
@@ -692,7 +749,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -769,7 +826,7 @@
         "h": 7,
         "w": 23,
         "x": 0,
-        "y": 27
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 2,
@@ -789,7 +846,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -864,7 +921,7 @@
         "h": 7,
         "w": 23,
         "x": 0,
-        "y": 34
+        "y": 42
       },
       "hiddenSeries": false,
       "id": 10,
@@ -885,7 +942,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "7.5.12",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -945,7 +1002,7 @@
       }
     }
   ],
-  "refresh": "10s",
+  "refresh": "",
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
@@ -958,7 +1015,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "bat-prod",
           "value": "bat-prod"
         },
@@ -990,8 +1047,13 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "All",
-          "value": "$__all"
+          "tags": [],
+          "text": [
+            "register-dttpimport"
+          ],
+          "value": [
+            "register-dttpimport"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
@@ -1000,7 +1062,7 @@
         "hide": 0,
         "includeAll": true,
         "label": "Applications",
-        "multi": false,
+        "multi": true,
         "name": "Applications",
         "options": [],
         "query": {
