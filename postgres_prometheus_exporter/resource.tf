@@ -9,7 +9,7 @@ data "cloudfoundry_service_instance" "postgres_instance" {
 }
 
 resource "cloudfoundry_service_key" "postgres-key" {
-  name             = data.cloudfoundry_service_instance.postgres_instance.name
+  name             = "${data.cloudfoundry_service_instance.postgres_instance.name}-prometheus-exporter"
   service_instance = data.cloudfoundry_service_instance.postgres_instance.id
 }
 
