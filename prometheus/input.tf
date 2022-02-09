@@ -25,6 +25,8 @@ variable "alert_rules" { default = "" }
 variable "internal_apps" { default = [] }
 
 variable "readonly" { default = false }
+variable "yearly" { default = false }
+
 variable "docker_credentials" {
   description = "Credentials for Dockerhub. Map of {username, password}."
   type        = map(any)
@@ -58,6 +60,7 @@ locals {
       port = try(split(":", app)[1], local.default_internal_app_port)
     }
   ]
+  yearly_param = var.yearly == true ? "&rp=one_year" : ""
   template_variable_map = {
     exporters               = local.exporters
     alertmanager_endpoint   = var.alertmanager_endpoint
@@ -71,6 +74,7 @@ locals {
     remote_read_password    = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_basic_auth_password
     internal_app_maps       = local.internal_app_maps
     default_scrape_interval = local.default_scrape_interval
+    yearly_param            = local.yearly_param
   }
   config_file = templatefile(var.readonly == true ? "${path.module}/templates/readonly.yml.tmpl" : "${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
 

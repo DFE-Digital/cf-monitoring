@@ -137,6 +137,10 @@ variable "enabled_modules" {
   ]
 }
 
+variable "enable_prometheus_yearly" {
+  default = false
+}
+
 locals {
   list_of_redis_exporters    = [for redis_module in module.redis_prometheus_exporter : redis_module.exporter]
   list_of_postgres_exporters = [for postgres_module in module.postgres_prometheus_exporter : postgres_module.exporter]
@@ -147,4 +151,5 @@ locals {
       scheme   = "https"
     }
   ]
+  prometheus_yearly_endpoint = var.enable_prometheus_yearly ? module.prometheus_yearly[0].endpoint : ""
 }
