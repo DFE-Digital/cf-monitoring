@@ -56,6 +56,20 @@ module "prometheus_readonly" {
   docker_credentials           = var.docker_credentials
 }
 
+module "prometheus_yearly" {
+  source = "../prometheus"
+  count  = var.enable_prometheus_yearly ? 1 : 0
+
+  monitoring_instance_name     = "yearly-${var.monitoring_instance_name}"
+  monitoring_space_id          = data.cloudfoundry_space.monitoring.id
+  influxdb_service_instance_id = module.influxdb[0].service_instance_id
+  memory                       = var.prometheus_memory
+  disk_quota                   = var.prometheus_disk_quota
+  readonly                     = true
+  yearly                       = true
+  docker_credentials           = var.docker_credentials
+}
+
 module "prometheus" {
   source = "../prometheus"
   count  = contains(var.enabled_modules, "prometheus") ? 1 : 0
@@ -95,16 +109,17 @@ module "grafana" {
   source = "../grafana"
   count  = contains(var.enabled_modules, "grafana") ? 1 : 0
 
-  monitoring_instance_name  = var.monitoring_instance_name
-  monitoring_space_id       = data.cloudfoundry_space.monitoring.id
-  prometheus_endpoint       = module.prometheus_readonly[0].endpoint
-  google_client_id          = var.grafana_google_client_id
-  google_client_secret      = var.grafana_google_client_secret
-  google_jwt                = var.grafana_google_jwt
-  admin_password            = var.grafana_admin_password
-  json_dashboards           = var.grafana_json_dashboards
-  extra_datasources         = var.grafana_extra_datasources
-  influxdb_credentials      = module.influxdb[0].credentials
-  runtime_version           = var.grafana_runtime_version
-  elasticsearch_credentials = var.grafana_elasticsearch_credentials
+  monitoring_instance_name   = var.monitoring_instance_name
+  monitoring_space_id        = data.cloudfoundry_space.monitoring.id
+  prometheus_endpoint        = module.prometheus_readonly[0].endpoint
+  prometheus_yearly_endpoint = local.prometheus_yearly_endpoint
+  google_client_id           = var.grafana_google_client_id
+  google_client_secret       = var.grafana_google_client_secret
+  google_jwt                 = var.grafana_google_jwt
+  admin_password             = var.grafana_admin_password
+  json_dashboards            = var.grafana_json_dashboards
+  extra_datasources          = var.grafana_extra_datasources
+  influxdb_credentials       = module.influxdb[0].credentials
+  runtime_version            = var.grafana_runtime_version
+  elasticsearch_credentials  = var.grafana_elasticsearch_credentials
 }

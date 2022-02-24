@@ -3,6 +3,7 @@ variable "monitoring_instance_name" {}
 variable "monitoring_space_id" {}
 
 variable "prometheus_endpoint" {}
+variable "prometheus_yearly_endpoint" { default = "" }
 
 variable "runtime_version" { default = "" }
 
@@ -39,12 +40,13 @@ locals {
     elasticsearch_password = var.elasticsearch_credentials.password
   }
   prometheus_datasource_variables = {
-    prometheus_endpoint      = var.prometheus_endpoint
-    monitoring_instance_name = var.monitoring_instance_name
-    influxdb_hostname        = var.influxdb_credentials.hostname
-    influxdb_port            = var.influxdb_credentials.port
-    influxdb_username        = var.influxdb_credentials.username
-    influxdb_password        = var.influxdb_credentials.password
+    prometheus_endpoint        = var.prometheus_endpoint
+    prometheus_yearly_endpoint = var.prometheus_yearly_endpoint
+    monitoring_instance_name   = var.monitoring_instance_name
+    influxdb_hostname          = var.influxdb_credentials.hostname
+    influxdb_port              = var.influxdb_credentials.port
+    influxdb_username          = var.influxdb_credentials.username
+    influxdb_password          = var.influxdb_credentials.password
   }
   runtime_version   = var.runtime_version != "" ? var.runtime_version : local.default_runtime_version
   runtime_variables = { runtime_version = local.runtime_version }

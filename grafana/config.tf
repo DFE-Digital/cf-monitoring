@@ -29,6 +29,11 @@ data "archive_file" "config" {
   }
 
   source {
+    content  = templatefile("${path.module}/datasources/prometheus_yearly.yml.tmpl", local.prometheus_datasource_variables)
+    filename = "datasources/prometheus_yearly.yml"
+  }
+
+  source {
     content  = templatefile("${path.module}/datasources/influxdb.yml.tmpl", local.prometheus_datasource_variables)
     filename = "datasources/influxdb.yml"
   }

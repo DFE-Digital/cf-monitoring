@@ -15,6 +15,21 @@ The [prometheus_all module](#prometheus-all) is a good starting point as it incl
 
 [github.com/DFE-Digital/cf-monitoring](https://github.com/DFE-Digital/cf-monitoring)
 
+## Table of contents
+- [Prerequisites](#rerequisites)
+- [prometheus_all](#prometheusall)
+- [Minimal configuration](#minimal-configuration)
+- [Use a specific cf-monitoring version](#use-a-specific-cf-monitoring-version)
+- [Retention policy](#retention-policy)
+- [Enable specific modules](#enable-specific-modules)
+- [Grafana](#grafana)
+- [PostgreSQL](#postgresql)
+- [Redis Services](#redis-services)
+- [External exporters](#external-exporters)
+- [Internal applications](#internal-applications)
+- [alertmanager](#alertmanager)
+- [Dockerhub pull rate limit](#dockerhub-pull-rate-limit)
+
 ## Prerequisites
 
 - By default, the influxdb database service must be present (as it is on [GOV.UK PaaS](https://www.cloud.service.gov.uk/)). If not, another backend can be used and the influxdb module disabled.
@@ -51,6 +66,36 @@ module prometheus_all {
 The git reference can be changed. For example for the `dev` branch:
 ```
 source = "git::https://github.com/DFE-Digital/cf-monitoring.git//prometheus_all?ref=dev"
+```
+
+## Retention policy
+The default retention policy in influxdb is 30 days. After which all the metrics are deleted. It is possible to keep some metrics for 12 months using
+[influxdb downsampling](https://docs.influxdata.com/influxdb/v1.8/guides/downsample_and_retain/) and enable _yearly_ prometheus.
+
+### Influxdb downsampling
+- Install influxdb client `1.8` from https://portal.influxdata.com/downloads/
+- Install [cf conduit](https://github.com/alphagov/paas-cf-conduit) plugin (min version 0.13): `cf install-plugin conduit`
+- Connect to the influxdb instance: `cf conduit <influxdb instance> -- influx`
+- Create the `one_year` retention policy
+
+  ```
+  CREATE RETENTION POLICY one_year on defaultdb DURATION 52w REPLICATION 1
+  ```
+- Create the continuous query to aggregate data automatically. For the billing data enter:
+
+  ```
+  CREATE CONTINUOUS QUERY cost_1y ON defaultdb BEGIN SELECT max(value) AS value INTO defaultdb.one_year.cost FROM defaultdb.default_retention_policy.cost GROUP BY time(1d),* END
+  ```
+
+### Prometheus-yearly
+Prometheus-yearly is an extra prometheus instance reading data from the _one_year_ retention policy in influxdb. It is disabled by default. To enable it set `enable_prometheus_yearly` to _true_:
+
+```hcl
+module prometheus_all {
+  source = "git::https://github.com/DFE-Digital/cf-monitoring.git//prometheus_all"
+  ...
+  enable_prometheus_yearly = true
+}
 ```
 
 ## Enable specific modules
@@ -102,7 +147,7 @@ List of external endpoints which can be queried via `/metrics`. Can be used for 
 
 They must be accessible via https.
 
-## Internal apps
+## Internal applications
 ### Configuration
 Pass a list of applications deployed to Cloud Foundry and prometheus will find each individual instance and scrape metrics from them. The format is:
 
