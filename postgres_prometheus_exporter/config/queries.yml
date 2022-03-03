@@ -1,0 +1,24 @@
+pg_stat_user_tables:
+  query: |
+    SELECT
+      current_database() AS datname,
+      schemaname,
+      relname,
+      n_live_tup AS row_count
+    FROM
+      pg_stat_user_tables
+    ORDER BY
+      n_live_tup DESC
+  metrics:
+    - datname:
+        usage: LABEL
+        description: Name of this database
+    - schemaname:
+        usage: LABEL
+        description: Name of this schema
+    - relname:
+        usage: LABEL
+        description: Name of this table
+    - row_count:
+        usage: GAUGE
+        description: Estimated number of live rows
