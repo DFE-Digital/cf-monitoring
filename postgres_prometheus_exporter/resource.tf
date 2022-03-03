@@ -17,13 +17,16 @@ resource "cloudfoundry_app" "postgres-exporter" {
   name         = "postgres-exporter-${data.cloudfoundry_service_instance.postgres_instance.name}"
   space        = var.monitoring_space_id
   docker_image = "quay.io/prometheuscommunity/postgres-exporter:${local.docker_image_tag}"
+  command      = "echo \"$${QUERY_DATA}\" > /home/queries.yml; postgres_exporter"
 
   routes {
     route = cloudfoundry_route.postgres_exporter.id
   }
 
   environment = {
-    DATA_SOURCE_NAME = cloudfoundry_service_key.postgres-key.credentials.uri
+    DATA_SOURCE_NAME              = cloudfoundry_service_key.postgres-key.credentials.uri
+    PG_EXPORTER_EXTEND_QUERY_PATH = "/home/queries.yml"
+    QUERY_DATA                    = file("${path.module}/config/queries.yml")
   }
 }
 
