@@ -49,6 +49,7 @@ variable "grafana_google_client_secret" {
 }
 variable "grafana_admin_password" {
   description = "Grafana administrator password (User: admin)"
+  default     = ""
 }
 variable "grafana_json_dashboards" {
   description = <<-DESCRIPTION
