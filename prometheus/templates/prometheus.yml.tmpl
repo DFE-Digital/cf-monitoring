@@ -30,6 +30,9 @@ scrape_configs:
 %{ for app in internal_app_maps ~}
   - job_name: ${ app.host }:${ app.port }
     scrape_interval: ${default_scrape_interval}
+    authorization:
+      type: Bearer
+      credentials: test1234567890
     dns_sd_configs:
     - names:
       - ${app.host}
