@@ -46,6 +46,7 @@ module "prometheus" {
 
   influxdb_service_plan = "tiny-1_x"
   internal_apps = [
-    "notify-statsd-exporter-preview.apps.internal:8080"
+    "notify-statsd-exporter-preview.apps.internal:8080",
+    "notify-api-preview.apps.internal:8080"
   ]
 }
