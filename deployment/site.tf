@@ -32,17 +32,26 @@ provider "cloudfoundry" {
 }
 
 variable "cloudfoundry_sso_passcode" {}
+variable "grafana_github_client_id" {}
+variable "grafana_github_client_secret" {}
 
 module "prometheus" {
   source = "../prometheus_all"
   enabled_modules = [
     "influxdb",
     "prometheus",
+    "grafana",
   ]
 
   monitoring_org_name      = "govuk-notify"
   monitoring_space_name    = "sandbox"
   monitoring_instance_name = "notify"
+
+  grafana_github_client_id     = var.grafana_github_client_id
+  grafana_github_client_secret = var.grafana_github_client_secret
+  grafana_github_team_ids = [
+    1789721 # notify
+  ]
 
   influxdb_service_plan = "tiny-1_x"
   internal_apps = [

@@ -1,3 +1,11 @@
+resource "random_password" "admin_password" {
+  length  = 30
+  special = false
+  lower   = true
+  upper   = true
+  number  = true
+}
+
 resource "cloudfoundry_route" "grafana" {
   domain   = data.cloudfoundry_domain.cloudapps.id
   space    = var.monitoring_space_id
@@ -14,6 +22,6 @@ resource "cloudfoundry_app" "grafana" {
     route = cloudfoundry_route.grafana.id
   }
   environment = {
-    ADMIN_PASS = var.admin_password
+    ADMIN_PASS = random_password.admin_password.result
   }
 }

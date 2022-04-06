@@ -39,17 +39,17 @@ variable "alert_rules" {
   default     = ""
 }
 
-variable "grafana_google_client_id" {
-  description = "Google client id for Grafana Google single-sign-on"
+variable "grafana_github_client_id" {
+  description = "Github client id for Grafana Github single-sign-on"
   default     = ""
 }
-variable "grafana_google_client_secret" {
-  description = "Google client secret for Grafana Google single-sign-on"
+variable "grafana_github_client_secret" {
+  description = "Github client secret for Grafana Github single-sign-on"
   default     = ""
 }
-variable "grafana_admin_password" {
-  description = "Grafana administrator password (User: admin)"
-  default     = ""
+variable "grafana_github_team_ids" {
+  description = "Github team ids that are authorised to access grafana"
+  default     = []
 }
 variable "grafana_json_dashboards" {
   description = <<-DESCRIPTION
@@ -65,24 +65,9 @@ variable "grafana_extra_datasources" {
   DESCRIPTION
   default     = []
 }
-variable "grafana_google_jwt" {
-  description = "Google JWT token for Grafana Google sheet data source"
-  default     = ""
-}
 variable "grafana_runtime_version" {
   description = "Override default Grafana version. See Grafana module for current default version."
   default     = ""
-}
-
-variable "grafana_elasticsearch_credentials" {
-  description = "Credentials for Grafana Elasticserach datasource. Map of {url, username, password}."
-  type        = map(any)
-
-  default = {
-    url      = ""
-    username = ""
-    password = ""
-  }
 }
 
 variable "docker_credentials" {

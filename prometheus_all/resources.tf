@@ -113,13 +113,11 @@ module "grafana" {
   monitoring_space_id        = data.cloudfoundry_space.monitoring.id
   prometheus_endpoint        = module.prometheus_readonly[0].endpoint
   prometheus_yearly_endpoint = local.prometheus_yearly_endpoint
-  google_client_id           = var.grafana_google_client_id
-  google_client_secret       = var.grafana_google_client_secret
-  google_jwt                 = var.grafana_google_jwt
-  admin_password             = var.grafana_admin_password
+  github_client_id           = var.grafana_github_client_id
+  github_client_secret       = var.grafana_github_client_secret
+  github_team_ids            = var.grafana_github_team_ids
   json_dashboards            = var.grafana_json_dashboards
   extra_datasources          = var.grafana_extra_datasources
   influxdb_credentials       = module.influxdb[0].credentials
   runtime_version            = var.grafana_runtime_version
-  elasticsearch_credentials  = var.grafana_elasticsearch_credentials
 }
