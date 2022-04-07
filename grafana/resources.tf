@@ -25,3 +25,16 @@ resource "cloudfoundry_app" "grafana" {
     ADMIN_PASS = random_password.admin_password.result
   }
 }
+
+resource "cloudfoundry_service_instance" "postgres" {
+  count        = var.postgres_plan != "" ? 1 : 0
+  name         = "grafana-${var.monitoring_instance_name}"
+  space        = var.monitoring_space_id
+  service_plan = data.cloudfoundry_service.postgres.service_plans[var.postgres_plan]
+  tags         = []
+}
+
+resource "cloudfoundry_service_key" "grafana_key" {
+  name             = "grafana-key"
+  service_instance = cloudfoundry_service_instance.postgres[0].id
+}

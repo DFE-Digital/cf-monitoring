@@ -13,6 +13,7 @@ variable "github_team_ids" { type = list(number) }
 variable "influxdb_credentials" { default = null }
 variable "json_dashboards" { default = [] }
 variable "extra_datasources" { default = [] }
+variable "postgres_plan" { default = "" }
 
 locals {
   default_runtime_version = "7.5.12"

@@ -113,6 +113,7 @@ module "grafana" {
   monitoring_space_id        = data.cloudfoundry_space.monitoring.id
   prometheus_endpoint        = module.prometheus_readonly[0].endpoint
   prometheus_yearly_endpoint = local.prometheus_yearly_endpoint
+  postgres_plan              = var.grafana_postgres_plan
   github_client_id           = var.grafana_github_client_id
   github_client_secret       = var.grafana_github_client_secret
   github_team_ids            = var.grafana_github_team_ids

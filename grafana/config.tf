@@ -14,7 +14,7 @@ data "archive_file" "config" {
   }
 
   source {
-    content  = templatefile("${path.module}/config/grafana.ini", local.grafana_ini_variables)
+    content  = templatefile("${path.module}/config/grafana.ini", merge(local.grafana_ini_variables, cloudfoundry_service_key.grafana_key.credentials))
     filename = "grafana.ini"
   }
 

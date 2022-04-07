@@ -47,6 +47,7 @@ module "prometheus" {
   monitoring_space_name    = "sandbox"
   monitoring_instance_name = "notify"
 
+  grafana_postgres_plan        = "small-11"
   grafana_github_client_id     = var.grafana_github_client_id
   grafana_github_client_secret = var.grafana_github_client_secret
   grafana_github_team_ids = [

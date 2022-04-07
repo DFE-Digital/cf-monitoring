@@ -39,6 +39,10 @@ variable "alert_rules" {
   default     = ""
 }
 
+variable "grafana_postgres_plan" {
+  description = "If provided, it will create a postgres db to persist dashboards and grafana data between deployments"
+  default     = ""
+}
 variable "grafana_github_client_id" {
   description = "Github client id for Grafana Github single-sign-on"
   default     = ""
