@@ -20,6 +20,7 @@ locals {
   dashboard_list          = fileset(path.module, "dashboards/*.json")
   dashboards              = [for f in local.dashboard_list : file("${path.module}/${f}")]
   grafana_ini_variables = {
+    root_url             = "https://${cloudfoundry_route.grafana.endpoint}"
     github_client_id     = var.github_client_id
     github_client_secret = var.github_client_secret
     github_team_ids      = join(",", var.github_team_ids)
