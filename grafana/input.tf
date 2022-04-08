@@ -23,6 +23,8 @@ locals {
     github_client_id     = var.github_client_id
     github_client_secret = var.github_client_secret
     github_team_ids      = join(",", var.github_team_ids)
+    database_url         = cloudfoundry_service_key.grafana_key.credentials.uri
+
   }
   prometheus_datasource_variables = {
     prometheus_endpoint        = var.prometheus_endpoint
