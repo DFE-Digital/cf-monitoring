@@ -44,7 +44,7 @@ module "prometheus" {
   ]
 
   monitoring_org_name      = "govuk-notify"
-  monitoring_space_name    = "sandbox"
+  monitoring_space_name    = "monitoring"
   monitoring_instance_name = "notify"
 
   grafana_postgres_plan        = "small-11"
