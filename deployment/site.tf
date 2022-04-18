@@ -35,6 +35,30 @@ variable "cloudfoundry_sso_passcode" {}
 variable "grafana_github_client_id" {}
 variable "grafana_github_client_secret" {}
 
+locals {
+  org_name = "govuk-notify"
+  spaces = [
+    "preview",
+    "staging",
+    "production",
+  ]
+  internal_apps_per_space = [
+    "notify-statsd-exporter",
+    "notify-api",
+    "notify-admin",
+  ]
+  cross_space_apps = [
+    "notify-prometheus-exporter.apps.internal"
+  ]
+
+  internal_apps = {
+    for pair in setproduct(local.spaces, local.internal_apps_per_space) : "${pair[1]}-${pair[0]}.apps.internal" => {
+      space    = pair[0]
+      app_name = pair[1]
+    }
+  }
+}
+
 module "prometheus" {
   source = "../prometheus_all"
   enabled_modules = [
@@ -43,7 +67,7 @@ module "prometheus" {
     "grafana",
   ]
 
-  monitoring_org_name      = "govuk-notify"
+  monitoring_org_name      = local.org_name
   monitoring_space_name    = "monitoring"
   monitoring_instance_name = "notify"
 
@@ -55,8 +79,7 @@ module "prometheus" {
   ]
 
   influxdb_service_plan = "tiny-1_x"
-  internal_apps = [
-    "notify-statsd-exporter-preview.apps.internal:8080",
-    "notify-api-preview.apps.internal:8080"
-  ]
+
+  internal_apps = concat(local.cross_space_apps, keys(local.internal_apps))
+
 }
