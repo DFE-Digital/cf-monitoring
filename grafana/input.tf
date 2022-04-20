@@ -16,7 +16,7 @@ variable "extra_datasources" { default = [] }
 variable "postgres_plan" { default = "" }
 
 locals {
-  default_runtime_version = "7.5.12"
+  default_runtime_version = "8.3.1"
   dashboard_list          = fileset(path.module, "dashboards/*.json")
   dashboards              = [for f in local.dashboard_list : file("${path.module}/${f}")]
   grafana_ini_variables = {
