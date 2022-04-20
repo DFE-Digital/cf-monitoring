@@ -7,6 +7,10 @@ terraform {
   }
 
   required_providers {
+    pass = {
+      source = "mecodia/pass"
+    }
+
     aws = {
       source  = "hashicorp/aws"
       version = "4.6.0"
@@ -29,6 +33,10 @@ provider "cloudfoundry" {
   skip_ssl_validation = false
   app_logs_max        = 30
   store_tokens_path   = "./config.json"
+}
+
+data "pass_password" "basic_auth_password" {
+  path = "credentials/http_auth/notify/password"
 }
 
 variable "cloudfoundry_sso_passcode" {}
