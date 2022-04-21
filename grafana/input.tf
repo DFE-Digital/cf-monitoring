@@ -14,6 +14,8 @@ variable "influxdb_credentials" { default = null }
 variable "json_dashboards" { default = [] }
 variable "extra_datasources" { default = [] }
 variable "postgres_plan" { default = "" }
+variable "basic_auth_password" { default = "" }
+variable "basic_auth_username" { default = "notify" }
 
 locals {
   default_runtime_version = "8.3.1"
@@ -35,6 +37,8 @@ locals {
     influxdb_port              = var.influxdb_credentials.port
     influxdb_username          = var.influxdb_credentials.username
     influxdb_password          = var.influxdb_credentials.password
+    basic_auth_username        = var.basic_auth_username
+    basic_auth_password        = var.basic_auth_password
   }
   runtime_version   = var.runtime_version != "" ? var.runtime_version : local.default_runtime_version
   runtime_variables = { runtime_version = local.runtime_version }

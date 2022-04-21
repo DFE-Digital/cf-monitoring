@@ -131,6 +131,8 @@ variable "enable_prometheus_yearly" {
   default = false
 }
 
+variable "prometheus_basic_auth_password" { default = "" }
+
 locals {
   list_of_redis_exporters    = [for redis_module in module.redis_prometheus_exporter : redis_module.exporter]
   list_of_postgres_exporters = [for postgres_module in module.postgres_prometheus_exporter : postgres_module.exporter]

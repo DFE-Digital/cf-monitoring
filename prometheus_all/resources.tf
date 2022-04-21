@@ -131,4 +131,5 @@ module "grafana" {
   extra_datasources          = var.grafana_extra_datasources
   influxdb_credentials       = module.influxdb[0].credentials
   runtime_version            = var.grafana_runtime_version
+  basic_auth_password        = var.prometheus_basic_auth_password
 }
