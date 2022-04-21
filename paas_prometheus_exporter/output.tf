@@ -6,3 +6,7 @@ output "exporter" {
     honor_labels = true
   }
 }
+
+output app_id {
+  value = cloudfoundry_app.paas_prometheus_exporter.id
+}

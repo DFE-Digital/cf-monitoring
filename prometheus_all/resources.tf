@@ -92,6 +92,16 @@ module "prometheus" {
   docker_credentials           = var.docker_credentials
 }
 
+resource "cloudfoundry_network_policy" "prometheus_to_paas_exporter" {
+  count  = contains(var.enabled_modules, "paas_prometheus_exporter") ? 1 : 0
+
+  policy {
+    source_app      = module.prometheus.app_id
+    destination_app = module.paas_prometheus_exporter.app_id
+    port            = "8080"
+  }
+}
+
 module "alertmanager" {
   source = "../alertmanager"
   count  = contains(var.enabled_modules, "alertmanager") ? 1 : 0
