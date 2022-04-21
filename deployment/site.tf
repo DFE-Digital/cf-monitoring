@@ -73,6 +73,7 @@ module "prometheus" {
     "influxdb",
     "prometheus",
     "grafana",
+    "paas_prometheus_exporter",
   ]
 
   monitoring_org_name      = local.org_name
@@ -87,6 +88,9 @@ module "prometheus" {
   ]
 
   influxdb_service_plan = "tiny-1_x"
+
+  paas_exporter_username = ""
+  paas_exporter_password = ""
 
   internal_apps = concat(local.cross_space_apps, keys(local.internal_apps))
 
