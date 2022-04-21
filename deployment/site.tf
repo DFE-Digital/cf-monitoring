@@ -39,9 +39,15 @@ data "pass_password" "basic_auth_password" {
   path = "credentials/http_auth/notify/password"
 }
 
+data "pass_password" "grafana_github_client_id" {
+  path = "credentials/monitoring/grafana-github-oauth-client-id"
+}
+
+data "pass_password" "grafana_github_client_secret" {
+  path = "credentials/monitoring/grafana-github-oauth-client-secret"
+}
+
 variable "cloudfoundry_sso_passcode" {}
-variable "grafana_github_client_id" {}
-variable "grafana_github_client_secret" {}
 
 locals {
   org_name = "govuk-notify"
@@ -81,8 +87,8 @@ module "prometheus" {
   monitoring_instance_name = "notify"
 
   grafana_postgres_plan        = "small-11"
-  grafana_github_client_id     = var.grafana_github_client_id
-  grafana_github_client_secret = var.grafana_github_client_secret
+  grafana_github_client_id     = data.pass_password.grafana_github_client_id.password
+  grafana_github_client_secret = data.pass_password.grafana_github_client_secret.password
   grafana_github_team_ids = [
     1789721 # notify
   ]
