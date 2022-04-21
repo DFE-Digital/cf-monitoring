@@ -93,11 +93,11 @@ module "prometheus" {
 }
 
 resource "cloudfoundry_network_policy" "prometheus_to_paas_exporter" {
-  count  = contains(var.enabled_modules, "paas_prometheus_exporter") ? 1 : 0
+  count = contains(var.enabled_modules, "paas_prometheus_exporter") ? 1 : 0
 
   policy {
-    source_app      = module.prometheus.app_id
-    destination_app = module.paas_prometheus_exporter.app_id
+    source_app      = module.prometheus[0].app_id
+    destination_app = module.paas_prometheus_exporter[0].app_id
     port            = "8080"
   }
 }
