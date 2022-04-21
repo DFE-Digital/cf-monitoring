@@ -51,6 +51,14 @@ data "pass_password" "prometheus_shared_token" {
   path = "credentials/monitoring/prometheus-shared-token"
 }
 
+data "pass_password" "prometheus_exporter_username" {
+  path = "credentials/monitoring/prometheus-exporter-paas-username"
+}
+
+data "pass_password" "prometheus_exporter_password" {
+  path = "credentials/monitoring/prometheus-exporter-paas-password"
+}
+
 variable "cloudfoundry_sso_passcode" {}
 
 locals {
@@ -99,8 +107,8 @@ module "prometheus" {
 
   influxdb_service_plan = "tiny-1_x"
 
-  paas_exporter_username = ""
-  paas_exporter_password = ""
+  paas_exporter_username = data.pass_password.prometheus_exporter_username.password
+  paas_exporter_password = data.pass_password.prometheus_exporter_password.password
 
   internal_apps = concat(local.cross_space_apps, keys(local.internal_apps))
 
