@@ -132,6 +132,7 @@ variable "enable_prometheus_yearly" {
 }
 
 variable "prometheus_basic_auth_password" { default = "" }
+variable "prometheus_shared_token" { default = "" }
 
 locals {
   list_of_redis_exporters    = [for redis_module in module.redis_prometheus_exporter : redis_module.exporter]

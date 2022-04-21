@@ -26,6 +26,7 @@ variable "internal_apps" { default = [] }
 
 variable "readonly" { default = false }
 variable "yearly" { default = false }
+variable "shared_token" { default = "" }
 
 variable "docker_credentials" {
   description = "Credentials for Dockerhub. Map of {username, password}."
@@ -75,6 +76,7 @@ locals {
     internal_app_maps       = local.internal_app_maps
     default_scrape_interval = local.default_scrape_interval
     yearly_param            = local.yearly_param
+    shared_token            = var.shared_token
   }
   config_file = templatefile(var.readonly == true ? "${path.module}/templates/readonly.yml.tmpl" : "${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
 

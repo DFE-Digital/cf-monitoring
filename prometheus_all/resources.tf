@@ -90,6 +90,7 @@ module "prometheus" {
   disk_quota                   = var.prometheus_disk_quota
   internal_apps                = var.internal_apps
   docker_credentials           = var.docker_credentials
+  shared_token                 = var.prometheus_shared_token
 }
 
 resource "cloudfoundry_network_policy" "prometheus_to_paas_exporter" {

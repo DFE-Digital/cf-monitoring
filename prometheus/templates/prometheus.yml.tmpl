@@ -32,7 +32,7 @@ scrape_configs:
     scrape_interval: ${default_scrape_interval}
     authorization:
       type: Bearer
-      credentials: test1234567890
+      credentials: ${shared_token}
     dns_sd_configs:
     - names:
       - ${app.host}

@@ -47,6 +47,10 @@ data "pass_password" "grafana_github_client_secret" {
   path = "credentials/monitoring/grafana-github-oauth-client-secret"
 }
 
+data "pass_password" "prometheus_shared_token" {
+  path = "credentials/monitoring/prometheus-shared-token"
+}
+
 variable "cloudfoundry_sso_passcode" {}
 
 locals {
@@ -101,4 +105,5 @@ module "prometheus" {
   internal_apps = concat(local.cross_space_apps, keys(local.internal_apps))
 
   prometheus_basic_auth_password = data.pass_password.basic_auth_password.password
+  prometheus_shared_token        = data.pass_password.prometheus_shared_token.password
 }
