@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1642435504765,
+  "id": 6,
+  "iteration": 1650960370325,
   "links": [],
   "panels": [
     {
@@ -489,12 +489,19 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "/.*failed requests/",
+          "$$hashKey": "object:174",
+          "alias": "/.*failed requests \\(server\\)/",
           "color": "#C4162A"
         },
         {
+          "$$hashKey": "object:175",
           "alias": "/.*total requests/",
           "color": "#1F60C4"
+        },
+        {
+          "$$hashKey": "object:188",
+          "alias": "/.*failed requests \\(client\\)/",
+          "color": "#FF9830"
         }
       ],
       "spaceLength": 10,
@@ -510,10 +517,18 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"0xx|4xx|5xx\"}[1m])) by (app) *60",
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"4xx\"}[1m])) by (app) *60",
           "interval": "",
-          "legendFormat": "{{app}} failed requests",
+          "legendFormat": "{{app}} failed requests (client)",
           "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(rate(requests{space=\"$SpaceName\", app=~\"$Applications\",status_range=~\"5xx\"}[1m])) by (app) *60",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{app}} failed requests (server)",
+          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -990,8 +1005,8 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "All",
-          "value": "$__all"
+          "text": "apply-prod",
+          "value": "apply-prod"
         },
         "datasource": "Prometheus",
         "definition": "label_values(memory_utilization{space =~\"$SpaceName\"},app)",
