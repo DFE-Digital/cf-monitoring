@@ -16,6 +16,16 @@ variable "extra_datasources" { default = [] }
 variable "postgres_plan" { default = "" }
 variable "basic_auth_password" { default = "" }
 variable "basic_auth_username" { default = "notify" }
+variable "aws_datasources" { 
+  type = list(object({
+    "name"                   = string
+    "region"                 = string
+    "access_key"             = string
+    "secret_key"             = string
+    "customMetricNamespaces" = string
+  }))
+  sensitive = true
+}
 
 locals {
   default_runtime_version = "8.3.1"

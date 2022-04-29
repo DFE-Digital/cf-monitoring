@@ -1,0 +1,17 @@
+# config file version
+apiVersion: 1
+
+deleteDatasources:
+- name: ${name}
+  orgId: 1
+
+datasources:
+- name: "${name}"
+  type: cloudwatch
+  orgId: 1
+  jsonData:
+    authType: credentials
+    defaultRegion: ${region}
+  secureJsonData:
+    accessKey: "${access_key}"
+    secretKey: "${secret_key}"
