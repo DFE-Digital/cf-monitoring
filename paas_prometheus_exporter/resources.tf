@@ -1,7 +1,8 @@
 resource "cloudfoundry_route" "paas_prometheus_exporter" {
-  domain   = data.cloudfoundry_domain.cloudapps.id
+  domain   = data.cloudfoundry_domain.internal.id
   space    = var.monitoring_space_id
   hostname = "paas-prometheus-exporter-${var.monitoring_instance_name}"
+  port     = 8080
 }
 
 resource "cloudfoundry_app" "paas_prometheus_exporter" {

@@ -1,3 +1,7 @@
+global:
+  external_labels:
+    org: "govuk-notify"
+
 remote_read:
   - url: ${remote_read_url}
     read_recent: ${remote_read_recent}
@@ -26,10 +30,19 @@ scrape_configs:
     metric_relabel_configs:
       - regex: guid
         action: labeldrop
+      - source_labels: [space]
+        target_label: space
+        regex: live
+        replacement: production
+        action: replace
+
 %{ endfor ~}
 %{ for app in internal_app_maps ~}
   - job_name: ${ app.host }:${ app.port }
     scrape_interval: ${default_scrape_interval}
+    authorization:
+      type: Bearer
+      credentials: ${shared_token}
     dns_sd_configs:
     - names:
       - ${app.host}
@@ -42,6 +55,11 @@ scrape_configs:
         action: replace
       - regex: app_instance
         action: labeldrop
+      - source_labels: [space]
+        target_label: space
+        regex: live
+        replacement: production
+        action: replace
 %{ endfor ~}
 
 %{ if include_alerting }

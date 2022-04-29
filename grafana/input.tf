@@ -7,37 +7,27 @@ variable "prometheus_yearly_endpoint" { default = "" }
 
 variable "runtime_version" { default = "" }
 
-variable "google_client_id" { default = "" }
-variable "google_client_secret" { default = "" }
-variable "google_jwt" { default = "" }
+variable "github_client_id" {}
+variable "github_client_secret" {}
+variable "github_team_ids" { type = list(number) }
 variable "influxdb_credentials" { default = null }
-variable "elasticsearch_credentials" {
-  type = map(any)
-
-  default = {
-    url      = ""
-    username = ""
-    password = ""
-  }
-}
-
-variable "admin_password" {}
 variable "json_dashboards" { default = [] }
 variable "extra_datasources" { default = [] }
+variable "postgres_plan" { default = "" }
+variable "basic_auth_password" { default = "" }
+variable "basic_auth_username" { default = "notify" }
 
 locals {
-  default_runtime_version = "7.5.12"
+  default_runtime_version = "8.3.1"
   dashboard_list          = fileset(path.module, "dashboards/*.json")
   dashboards              = [for f in local.dashboard_list : file("${path.module}/${f}")]
   grafana_ini_variables = {
-    google_client_id     = var.google_client_id
-    google_client_secret = var.google_client_secret
-  }
-  grafana_datasource_variables = {
-    google_jwt             = var.google_jwt
-    elasticsearch_url      = var.elasticsearch_credentials.url
-    elasticsearch_username = var.elasticsearch_credentials.username
-    elasticsearch_password = var.elasticsearch_credentials.password
+    root_url             = "https://${cloudfoundry_route.grafana.endpoint}"
+    github_client_id     = var.github_client_id
+    github_client_secret = var.github_client_secret
+    github_team_ids      = join(",", var.github_team_ids)
+    database_url         = cloudfoundry_service_key.grafana_key.credentials.uri
+
   }
   prometheus_datasource_variables = {
     prometheus_endpoint        = var.prometheus_endpoint
@@ -47,6 +37,8 @@ locals {
     influxdb_port              = var.influxdb_credentials.port
     influxdb_username          = var.influxdb_credentials.username
     influxdb_password          = var.influxdb_credentials.password
+    basic_auth_username        = var.basic_auth_username
+    basic_auth_password        = var.basic_auth_password
   }
   runtime_version   = var.runtime_version != "" ? var.runtime_version : local.default_runtime_version
   runtime_variables = { runtime_version = local.runtime_version }

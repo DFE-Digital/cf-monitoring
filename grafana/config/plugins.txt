@@ -2,4 +2,3 @@ grafana-piechart-panel
 aidanmountford-html-panel
 simpod-json-datasource
 yesoreyeram-boomtable-panel
-grafana-googlesheets-datasource

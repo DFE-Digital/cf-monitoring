@@ -1,3 +1,7 @@
 data "cloudfoundry_domain" "cloudapps" {
-  name = "london.cloudapps.digital"
+  name = "cloudapps.digital"
+}
+
+data "cloudfoundry_service" "postgres" {
+  name = "postgres"
 }

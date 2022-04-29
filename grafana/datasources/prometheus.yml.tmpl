@@ -14,7 +14,14 @@ datasources:
   access: proxy
   orgId: 1
   url: "https://${prometheus_endpoint}"
-  basicAuth: false
   withCredentials: false
   isDefault: false
   editable: false
+%{ if basic_auth_password != "" }
+  basicAuth: true
+  basicAuthUser: ${basic_auth_username}
+  secureJsonData:
+    basicAuthPassword: ${basic_auth_password}
+%{ else }
+  basicAuth: false
+%{ endif }

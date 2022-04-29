@@ -8,5 +8,5 @@ data "cloudfoundry_space" "monitoring" {
 }
 
 data "cloudfoundry_domain" "cloudapps" {
-  name = "london.cloudapps.digital"
+  name = "cloudapps.digital"
 }

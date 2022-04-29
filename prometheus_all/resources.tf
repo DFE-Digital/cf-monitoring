@@ -90,6 +90,17 @@ module "prometheus" {
   disk_quota                   = var.prometheus_disk_quota
   internal_apps                = var.internal_apps
   docker_credentials           = var.docker_credentials
+  shared_token                 = var.prometheus_shared_token
+}
+
+resource "cloudfoundry_network_policy" "prometheus_to_paas_exporter" {
+  count = contains(var.enabled_modules, "paas_prometheus_exporter") ? 1 : 0
+
+  policy {
+    source_app      = module.prometheus[0].app_id
+    destination_app = module.paas_prometheus_exporter[0].app_id
+    port            = "8080"
+  }
 }
 
 module "alertmanager" {
@@ -113,13 +124,13 @@ module "grafana" {
   monitoring_space_id        = data.cloudfoundry_space.monitoring.id
   prometheus_endpoint        = module.prometheus_readonly[0].endpoint
   prometheus_yearly_endpoint = local.prometheus_yearly_endpoint
-  google_client_id           = var.grafana_google_client_id
-  google_client_secret       = var.grafana_google_client_secret
-  google_jwt                 = var.grafana_google_jwt
-  admin_password             = var.grafana_admin_password
+  postgres_plan              = var.grafana_postgres_plan
+  github_client_id           = var.grafana_github_client_id
+  github_client_secret       = var.grafana_github_client_secret
+  github_team_ids            = var.grafana_github_team_ids
   json_dashboards            = var.grafana_json_dashboards
   extra_datasources          = var.grafana_extra_datasources
   influxdb_credentials       = module.influxdb[0].credentials
   runtime_version            = var.grafana_runtime_version
-  elasticsearch_credentials  = var.grafana_elasticsearch_credentials
+  basic_auth_password        = var.prometheus_basic_auth_password
 }
