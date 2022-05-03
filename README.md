@@ -24,6 +24,7 @@ The [prometheus_all module](#prometheus-all) is a good starting point as it incl
 - [Enable specific modules](#enable-specific-modules)
 - [Grafana](#grafana)
 - [PostgreSQL](#postgresql)
+- [Generic PostgreSQL alerting](#generic-postgresql-alerting)
 - [Redis Services](#redis-services)
 - [External exporters](#external-exporters)
 - [Internal applications](#internal-applications)
@@ -133,6 +134,46 @@ See [Grafana README](grafana/README.md)
 Basic metrics are available in the `CF databases` dashboard. The `PostgreSQL advanced` dashboard provides more advanced metrics via the `postgres_prometheus_exporter` module.
 
 See [postgres_prometheus_exporter README](postgres_prometheus_exporter/README.md)
+
+## Generic PostgreSQL alerting
+Generic Postgres alerting can be enabled for selected databases.
+
+This will add alerts that will trigger as specified below
+- Memory avail < 512MB
+- Cpu usage > 60%
+- Storage space avail < 1GB
+
+PreReqs.
+1. Monitoring must be configured for the postgres instances
+2. Alerting must already be configured for your service (alertmanager)
+
+Set the following variables in tf or env.tfvars.json file as per your configuration to enable generic alerting.
+
+**postgres_dashboard_url** (string): the grafana url for the cf-databases dashboard
+
+**alertable_postgres_services** (map): a map of the postgres instances to have alerting enabled, and optional alert thresholds.
+If any thresholds are not listed they will default as below
+- max_cpu = 60 (%)
+- min_mem = 1 (in Gb)
+- min_stg = 1 (in Gb)
+
+e.g. (for json format)
+```
+"postgres_dashboard_url": "https://grafana-service.london.cloudapps.digital/d/azzzBNMz"
+
+"alertable_postgres_services": {
+  "bat-qa/apply-postgres-qa": {
+    "max_cpu": 65,
+    "min_mem": 0.5,
+    "min_stg": 2
+  },
+  "bat-qa/register-postgres-qa": {
+  },
+  "bat-qa/teacher-training-api-postgres-qa": {
+    "min_mem": 0.5
+  }
+}
+```
 
 ## Redis Services
 If your application uses Redis you may want to include a Redis metrics exporter for each instance of Redis you use. This is accomplished by passing in an array of strings. Each string takes the form
