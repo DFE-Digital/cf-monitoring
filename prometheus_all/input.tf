@@ -39,6 +39,11 @@ variable "alert_rules" {
   default     = ""
 }
 
+variable "postgres_dashboard_url" {
+  description = "Grafana dashboard url for Postgres"
+  default     = ""
+}
+
 variable "grafana_google_client_id" {
   description = "Google client id for Grafana Google single-sign-on"
   default     = ""
@@ -111,8 +116,12 @@ variable "redis_services" {
   default     = []
 }
 variable "postgres_services" {
-  description = "List of postrgres services for advanced monitoring and dashboard. [\"space1/postgres1\", \"space2/postgres2\", ...]"
+  description = "List of postgres services for advanced monitoring and dashboard. [\"space1/postgres1\", \"space2/postgres2\", ...]"
   default     = []
+}
+variable "alertable_postgres_services" {
+  description = "List of postgres services that will have alerting enabled. [\"space1/postgres1\", \"space2/postgres2\", ...]"
+  default     = {}
 }
 
 variable "external_exporters" {
