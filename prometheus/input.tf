@@ -21,6 +21,8 @@ variable "disk_quota" { default = "" }
 variable "influxdb_service_instance_id" {}
 
 variable "alert_rules" { default = "" }
+variable "postgres_dashboard_url" { default = "" }
+variable "alertable_postgres_services" { default = {} }
 
 variable "internal_apps" { default = [] }
 
@@ -77,6 +79,23 @@ locals {
     yearly_param            = local.yearly_param
   }
   config_file = templatefile(var.readonly == true ? "${path.module}/templates/readonly.yml.tmpl" : "${path.module}/templates/prometheus.yml.tmpl", local.template_variable_map)
+
+  postgres_alert_rules_variables = {
+    postgres_dashboard_url       = var.postgres_dashboard_url
+    alertable_postgres_instances = local.internal_pg_map
+  }
+
+  internal_pg_map = [for instance, settings in var.alertable_postgres_services : {
+    pg_fullname  = instance
+    pg_spacename = split("/", instance)[0]
+    pg_instance  = split("/", instance)[1]
+    max_cpu      = try(settings.max_cpu, 60)
+    min_mem      = try(settings.min_mem, 0.5)
+    min_stg      = try(settings.min_stg, 1)
+    }
+  ]
+
+  postgres_alert_rules = length(var.alertable_postgres_services) == 0 ? "" : templatefile("${path.module}/templates/pg_alert.rules.tmpl", local.postgres_alert_rules_variables)
 
   # From https://github.com/prometheus/prometheus/blob/main/Dockerfile
   default_command_list = [
