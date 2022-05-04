@@ -3,21 +3,23 @@
   rules:
 %{ for instance in alertable_postgres_instances ~}
   - alert: Postgres memory available low (instance - ${instance.pg_instance}, space - ${instance.pg_spacename})
-    expr: freeable_memory_bytes{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}/1024/1024/1024 < ${instance.min_mem}
+    expr: min_over_time(freeable_memory_bytes{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}[15m])/1024/1024/1024 < ${instance.min_mem}
     for: 5m
     annotations:
       summary:     ${instance.pg_instance} low memory available
       dashboard:   ${postgres_dashboard_url}&var-SpaceName=${instance.pg_spacename}&var-Services=${instance.pg_instance}
-      description: "Postgres Memory available is less than ${instance.min_mem} (current value: {{ $value }})"
+      description: "Postgres Memory available is less than ${instance.min_mem} GB (current value: {{ $value }})"
     labels:
       instance:    ${instance.pg_instance}
+      severity:    high
+      environment: ${instance.pg_spacename}
 %{ endfor ~}
 
 - name: Postgres CPU Utilisation
   rules:
 %{ for instance in alertable_postgres_instances ~}
   - alert: Postgres CPU Utilisation high (instance - ${instance.pg_instance}, space - ${instance.pg_spacename})
-    expr: cpu_percent{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"} > ${instance.max_cpu}
+    expr: max_over_time(cpu_percent{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}[15m]) > ${instance.max_cpu}
     for: 5m
     annotations:
       summary:     ${instance.pg_instance} high CPU Utilisation
@@ -25,18 +27,22 @@
       description: "Postgres CPU Utilisation is above ${instance.max_cpu}% (current value: {{ $value }})"
     labels:
       instance:    ${instance.pg_instance}
+      severity:    high
+      environment: ${instance.pg_spacename}
 %{ endfor ~}
 
 - name: Postgres Storage Utilisation
   rules:
 %{ for instance in alertable_postgres_instances ~}
   - alert: Postgres Storage available low (instance - ${instance.pg_instance}, space - ${instance.pg_spacename})
-    expr: free_storage_space_bytes{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}/1024/1024/1024 < ${instance.min_stg}
+    expr: min_over_time(free_storage_space_bytes{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}[15m])/1024/1024/1024 < ${instance.min_stg}
     for: 5m
     annotations:
       summary:     ${instance.pg_instance} low storage available
       dashboard:   ${postgres_dashboard_url}&var-SpaceName=${instance.pg_spacename}&var-Services=${instance.pg_instance}
-      description: "Postgres Storage available is less than ${instance.min_stg} (current value: {{ $value }})"
+      description: "Postgres Storage available is less than ${instance.min_stg} GB (current value: {{ $value }})"
     labels:
       instance:    ${instance.pg_instance}
+      severity:    high
+      environment: ${instance.pg_spacename}
 %{ endfor ~}
