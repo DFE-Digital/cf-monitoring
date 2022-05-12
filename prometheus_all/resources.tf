@@ -88,6 +88,8 @@ module "prometheus" {
   alert_rules                  = var.alert_rules
   alertable_postgres_services  = var.alertable_postgres_services
   postgres_dashboard_url       = "${var.postgres_dashboard_url}/cf-databases?orgId=1&refresh=1m"
+  alertable_apps               = var.alertable_apps
+  apps_dashboard_url           = "${var.apps_dashboard_url}/cf-apps?orgId=1&refresh=1m"
   memory                       = var.prometheus_memory
   disk_quota                   = var.prometheus_disk_quota
   internal_apps                = var.internal_apps

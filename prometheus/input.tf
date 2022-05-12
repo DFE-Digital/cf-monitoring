@@ -23,7 +23,8 @@ variable "influxdb_service_instance_id" {}
 variable "alert_rules" { default = "" }
 variable "postgres_dashboard_url" { default = "" }
 variable "alertable_postgres_services" { default = {} }
-
+variable "alertable_apps" { default = {} }
+variable "apps_dashboard_url" { default = "" }
 variable "internal_apps" { default = [] }
 
 variable "readonly" { default = false }
@@ -66,7 +67,7 @@ locals {
   template_variable_map = {
     exporters               = local.exporters
     alertmanager_endpoint   = var.alertmanager_endpoint
-    include_alerting        = var.alert_rules != "" || var.alertable_postgres_services != {}
+    include_alerting        = var.alert_rules != "" || var.alertable_postgres_services != {} || var.alertable_apps != {}
     remote_read_url         = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_url
     remote_write_url        = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_write_0_url
     remote_read_recent      = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_read_recent
@@ -85,6 +86,22 @@ locals {
     alertable_postgres_instances = local.internal_pg_map
   }
 
+  app_alert_rules_variables = {
+    cfapps_dashboard_url = var.apps_dashboard_url
+    apps                 = local.app_map
+  }
+
+  app_map = [for instance, settings in var.alertable_apps : {
+    app_name                       = instance
+    max_cpu                        = try(settings.max_cpu, 50)
+    max_mem                        = try(settings.max_mem, 60)
+    max_disk                       = try(settings.max_disk, 60)
+    max_crash_count                = try(settings.max_crash_count, 1)
+    max_elevated_req_failure_count = try(settings.max_elevated_req_failure_count, 0.1)
+    response_threshold             = try(settings.response_threshold, 1)
+    }
+  ]
+
   internal_pg_map = [for instance, settings in var.alertable_postgres_services : {
     pg_fullname  = instance
     pg_spacename = split("/", instance)[0]
@@ -95,6 +112,7 @@ locals {
     }
   ]
 
+  app_alert_rules      = length(var.alertable_apps) == 0 ? "" : templatefile("${path.module}/templates/app_alert.rules.tmpl", local.app_alert_rules_variables)
   postgres_alert_rules = length(var.alertable_postgres_services) == 0 ? "" : templatefile("${path.module}/templates/pg_alert.rules.tmpl", local.postgres_alert_rules_variables)
 
   # From https://github.com/prometheus/prometheus/blob/main/Dockerfile

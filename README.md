@@ -175,6 +175,39 @@ e.g. (for json format)
 }
 ```
 
+## Generic Application alerting
+Generic Application alerting can be enabled for selected apps.
+
+Set the following variables in tf or env.tfvars.json file as per your configuration to enable generic alerting.
+
+**apps_dashboard_url** (string): the grafana url for the cf-apps dashboard
+
+**alertable_apps** (map): a map of the app instances to have alerting enabled, and optional alert thresholds.
+If any thresholds are not listed they will default as below
+- max_cpu = 50 (%)
+- max_mem = 60 (%)
+- max_disk = 60 (%)
+- max_crash_count = 1
+- max_elevated_req_failure_count = 0.1 (10%)
+- response_threshold = 1 (second)
+
+PreReqs.
+1. Monitoring must be configured for the app instances
+2. Alerting must already be configured for your service (alertmanager)
+
+e.g. (for json format)
+```
+"apps_dashboard_url": "https://grafana-service.london.cloudapps.digital/d/azzzBNMz"
+
+"alertable_apps": {
+  "find-a-lost-trn-dev": {
+  },
+  "qualified-teachers-api-dev": {
+    "response_threshold": 1
+  },
+}
+```
+
 ## Redis Services
 If your application uses Redis you may want to include a Redis metrics exporter for each instance of Redis you use. This is accomplished by passing in an array of strings. Each string takes the form
 of `"space/service"`, for example:
