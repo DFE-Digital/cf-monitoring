@@ -66,7 +66,7 @@ locals {
   template_variable_map = {
     exporters               = local.exporters
     alertmanager_endpoint   = var.alertmanager_endpoint
-    include_alerting        = var.alert_rules != ""
+    include_alerting        = var.alert_rules != "" || var.alertable_postgres_services != {}
     remote_read_url         = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_url
     remote_write_url        = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_write_0_url
     remote_read_recent      = data.cloudfoundry_service_key.prometheus_key.credentials.prometheus_remote_read_0_read_recent
