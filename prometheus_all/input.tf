@@ -44,6 +44,11 @@ variable "postgres_dashboard_url" {
   default     = ""
 }
 
+variable "apps_dashboard_url" {
+  description = "Grafana dashboard url for apps"
+  default     = ""
+}
+
 variable "grafana_google_client_id" {
   description = "Google client id for Grafana Google single-sign-on"
   default     = ""
@@ -121,6 +126,11 @@ variable "postgres_services" {
 }
 variable "alertable_postgres_services" {
   description = "List of postgres services that will have alerting enabled. [\"space1/postgres1\", \"space2/postgres2\", ...]"
+  default     = {}
+}
+
+variable "alertable_apps" {
+  description = "List of apps that will have alerting enabled. [\"app1\", \"app2\", ...]"
   default     = {}
 }
 
