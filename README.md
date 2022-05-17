@@ -25,6 +25,7 @@ The [prometheus_all module](#prometheus-all) is a good starting point as it incl
 - [Grafana](#grafana)
 - [PostgreSQL](#postgresql)
 - [Generic PostgreSQL alerting](#generic-postgresql-alerting)
+- [Generic Application alerting](#generic-application-alerting)
 - [Redis Services](#redis-services)
 - [External exporters](#external-exporters)
 - [Internal applications](#internal-applications)
@@ -200,11 +201,11 @@ e.g. (for json format)
 "apps_dashboard_url": "https://grafana-service.london.cloudapps.digital/d/azzzBNMz"
 
 "alertable_apps": {
-  "find-a-lost-trn-dev": {
+  "tra-dev/find-a-lost-trn-dev": {
   },
-  "qualified-teachers-api-dev": {
-    "response_threshold": 1
-  },
+  "tra-dev/qualified-teachers-api-dev": {
+    "response_threshold": 5
+  }
 }
 ```
 
