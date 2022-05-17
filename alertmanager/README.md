@@ -9,12 +9,14 @@ It is deployed using the official docker image.
   monitoring_instance_name    MANDATORY
   config                      OPTIONAL
   slack_url                   OPTIONAL
-  slack_channel               OPTIONAL
+  slack_receivers             OPTIONAL
 ```
 
 - **monitoring_instance_name:** A unique name given to the application
 - **monitoring_space_id:** The Cloud Foundry space you wish to deploy the application to
 - **config:**  The contents of an alertmanager.yml file, as specified in the [documentation](https://prometheus.io/docs/alerting/latest/configuration/). If not specified, a dummy configuration is deployed.
+- **slack_url** An incoming webhook created at https://api.slack.com/apps/appid/incoming-webhooks? (replace appid with AppId value).  Incoming webhooks are assigned to a single channel so the channel does not need to be specified.  The default destination for all alerts that do not satisfy the matches defined in other routes.
+- **slack_receivers** A map of route\receiver names and webhook URLs.  These can be used to route alerts to different channels based on alert labels.  Alerts should include a label called `receiver` whose value is the same as the name of the receiver defined in this config property.
 
 ### Example
 ```hcl
@@ -24,7 +26,10 @@ module alertmanager {
   monitoring_instance_name = "test-alertmanager"
   config                   = file("${path.module}/files/alertmanager.yml")
   slack_url                = https://hooks.slack.com/services/XXXXXXXXX/YYYYYYYYYYY/xxxxxxxxxxxxxxxxxxxxxxxx
-  slack_channel            = mychannel
+  slack_receivers          = {
+    "service_one_tech": "https://hooks.slack.com/services/XXXXXXXXX/YYYYYYYYYYY/xxxxxxxxxxxxxxxxxxxxxxxx",
+    "service_two_tech": "https://hooks.slack.com/services/XXXXXXXXX/YYYYYYYYYYY/xxxxxxxxxxxxxxxxxxxxxxxx"
+  }
 }
 ```
 

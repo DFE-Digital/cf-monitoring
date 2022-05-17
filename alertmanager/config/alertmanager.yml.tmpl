@@ -5,6 +5,7 @@ global:
 %{ endif ~}
 
 route:
+  # the default route, this will be used if the matcher(s) of any of the child routes are not satisfied
   receiver: 'slack-notifications'
   group_interval: 1m
   repeat_interval: 1h
@@ -21,6 +22,13 @@ route:
     mute_time_intervals:
     - out-of-hours
     matchers: [period = 'out-of-hours']
+%{ for receiver, webhook in slack_receivers ~}
+  - receiver: ${ receiver }
+    group_interval: 1m
+    repeat_interval: 1h
+    matchers:
+    - receiver="${ receiver }"
+%{ endfor ~}
 
 mute_time_intervals:
 - name: out-of-hours
@@ -41,11 +49,34 @@ receivers:
 - name: slack-notifications
 %{ if slack_url != "" ~}
   slack_configs:
-  - channel: '#${slack_channel}'
-    send_resolved: true
+  - send_resolved: true
     title: '{{ template "slack.monzo.title" . }}'
     pretext: '{{ template "slack.monzo.pretext" . }}'
     title_link: '{{ template "__alertmanagerURL" . }}'
+    text: '{{ template "slack.monzo.text" . }}'
+    color: '{{ template "slack.monzo.color" . }}'
+    footer: 'Sent to default route'
+    actions:
+    - type: button
+      text: 'Runbook :green_book:'
+      url: '{{ (index .Alerts 0).Annotations.runbook }}'
+    - type: button
+      text: 'Query :mag:'
+      url: '{{ (index .Alerts 0).GeneratorURL }}'
+    - type: button
+      text: 'Dashboard :bar_chart:'
+      url: '{{ (index .Alerts 0).Annotations.dashboard }}'
+    - type: button
+      text: 'Silence :no_bell:'
+      url: '{{ template "__alert_silence_link" . }}'
+%{ endif ~}
+%{ for receiver, webhook in slack_receivers ~}
+- name: ${ receiver }
+  slack_configs:
+  - api_url: ${ webhook }
+    send_resolved: true
+    title: '{{ template "slack.monzo.title" . }}'
+    pretext: '{{ template "slack.monzo.pretext" . }}'
     text: '{{ template "slack.monzo.text" . }}'
     color: '{{ template "slack.monzo.color" . }}'
     actions:
@@ -61,4 +92,4 @@ receivers:
     - type: button
       text: 'Silence :no_bell:'
       url: '{{ template "__alert_silence_link" . }}'
-%{ endif ~}
+%{ endfor ~}

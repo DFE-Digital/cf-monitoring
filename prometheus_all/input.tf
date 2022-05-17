@@ -27,8 +27,12 @@ variable "alertmanager_slack_url" {
   default     = ""
 }
 variable "alertmanager_slack_channel" {
-  description = "Slack channel for alert notifications"
+  description = "DEPRECATED.  Slack channel for alert notifications.  This is unnecessary if the webhook in alertmanager_slack_url has been assigned to a channel."
   default     = ""
+}
+variable "alertmanager_slack_receivers" {
+  type    = map(string)
+  default = {}
 }
 variable "alertmanager_slack_template" {
   description = "Slack message template for alert notifications"
