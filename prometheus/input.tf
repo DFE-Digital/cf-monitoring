@@ -92,8 +92,9 @@ locals {
   }
 
   app_map = [for instance, settings in var.alertable_apps : {
-    app_name                       = instance
-    max_cpu                        = try(settings.max_cpu, 50)
+    app_name                       = split("/", instance)[1]
+    app_spacename                  = split("/", instance)[0]
+    max_cpu                        = try(settings.max_cpu, 60)
     max_mem                        = try(settings.max_mem, 60)
     max_disk                       = try(settings.max_disk, 60)
     max_crash_count                = try(settings.max_crash_count, 1)

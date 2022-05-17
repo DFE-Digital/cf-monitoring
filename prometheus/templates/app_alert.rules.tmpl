@@ -7,7 +7,7 @@ groups:
     for: 5m
     annotations:
       summary:     ${instance.app_name} High CPU Alert
-      dashboard:   ${cfapps_dashboard_url}&var-Applications=${instance.app_name}
+      dashboard:   ${cfapps_dashboard_url}&var-SpaceName=${instance.app_spacename}&var-Applications=${instance.app_name}
       description: "CPU usage has increased in the last 5 minutes (current value: {{ $value }}%)"
     labels:
       severity:    high
@@ -22,7 +22,7 @@ groups:
     for: 5m
     annotations:
       summary:     ${instance.app_name} high memory utilization
-      dashboard:   ${cfapps_dashboard_url}&var-Applications=${instance.app_name}
+      dashboard:   ${cfapps_dashboard_url}&var-SpaceName=${instance.app_spacename}&var-Applications=${instance.app_name}
       description: "Memory utilization has increased in the last 5 minutes (current value: {{ $value }}%)"
     labels:
       severity:    high
@@ -37,7 +37,7 @@ groups:
     for: 5m
     annotations:
       summary:     ${instance.app_name} high disk utilization
-      dashboard:   ${cfapps_dashboard_url}&var-Applications=${instance.app_name}
+      dashboard:   ${cfapps_dashboard_url}&var-SpaceName=${instance.app_spacename}&var-Applications=${instance.app_name}
       description: "Disk utilization has increased in the last 5 minutes (current value: {{ $value }})%"
     labels:
       severity:    high
@@ -52,7 +52,7 @@ groups:
     for: 5m
     annotations:
       summary:     At least one instance of ${instance.app_name} has crashed in the last 5 mins
-      dashboard:   ${cfapps_dashboard_url}&var-Applications=${instance.app_name}
+      dashboard:   ${cfapps_dashboard_url}&var-SpaceName=${instance.app_spacename}&var-Applications=${instance.app_name}
       description: At least one instance of ${instance.app_name} has crashed in the last 5 mins
     labels:
       severity:    high
@@ -67,7 +67,7 @@ groups:
     for: 5m
     annotations:
       summary:     High rate of failing requests
-      dashboard:   ${cfapps_dashboard_url}&var-Applications=${instance.app_name}
+      dashboard:   ${cfapps_dashboard_url}&var-SpaceName=${instance.app_spacename}&var-Applications=${instance.app_name}
       description: "The proportion of failed 5xx HTTP requests in the past 5 min is above ${instance.max_elevated_req_failure_count}% (current value: {{ humanizePercentage $value }})"
     labels:
       severity:    high
@@ -82,7 +82,7 @@ groups:
     for: 5m
     annotations:
       summary:     Slow running requests
-      dashboard:   ${cfapps_dashboard_url}&var-Applications=${instance.app_name}
+      dashboard:   ${cfapps_dashboard_url}&var-SpaceName=${instance.app_spacename}&var-Applications=${instance.app_name}
       description: "Requests in the 95 percentile taking longer than ${instance.response_threshold} second(s) (current value: {{ humanize $value}}s )"
     labels:
       severity:    high
