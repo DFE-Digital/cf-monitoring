@@ -9,7 +9,7 @@ resource "cloudfoundry_app" "alertmanager" {
   space              = var.monitoring_space_id
   docker_image       = "prom/alertmanager:${local.docker_image_tag}"
   docker_credentials = var.docker_credentials
-  command            = "echo \"$${SLACK_TEMPLATE}\" > slack.tmpl; echo \"$${CONFIG}\" > alertmanager.yml ; alertmanager --web.listen-address=:$${PORT} --config.file=alertmanager.yml"
+  command            = "echo \"$${SLACK_TEMPLATE}\" > slack.tmpl; echo \"$${CONFIG}\" > alertmanager.yml ; alertmanager --web.listen-address=:$${PORT} --web.external-url=https://${cloudfoundry_route.alertmanager.hostname}.${data.cloudfoundry_domain.cloudapps.name} --config.file=alertmanager.yml"
   routes {
     route = cloudfoundry_route.alertmanager.id
   }
