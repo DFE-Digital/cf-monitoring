@@ -53,6 +53,33 @@ A route has been added which will ensure alerts are only sent to slack once ever
     runbook: https://dfedigital.atlassian.net/wiki/spaces/GGIT/pages/2152497153/Rate+Limit
 ```
 
+### Testing Alertmanager
+
+Install `amtool` with `go get github.com/prometheus/alertmanager/cmd/amtool` if testing locally. `amtool` is already installed in alertmanager paas instance.
+1. Check if alertmanager is accessible
+
+  `amtool --alertmanager.url=https://alertmanager-tra-monitoring-dev.london.cloudapps.digital config show`
+  Above command displays alertmanager.yaml config.
+
+2. Checking where alerts go
+
+  `amtool --alertmanager.url=https://alertmanager-tra-monitoring-dev.london.cloudapps.digital config routes show`
+
+	Routing tree:
+   	└──	default-route  receiver: slack-notifications
+			├── {period="daily"}  receiver: slack-notifications
+			└── {period="'out-of-hours'"}  receiver: slack-notifications
+
+3. ` amtool --alertmanager.url=https://alertmanager-tra-monitoring-dev.london.cloudapps.digital config routes test period=daily `
+   prints `slack-notifications`
+
+### Simulating an alert
+
+Either `ssh` into alertmanager instance or run below command locally.
+
+`amtool --alertmanager.url=https://alertmanager-tra-monitoring-dev.london.cloudapps.digital alert add this-is-a-test-alert period=hourly`
+
+Above command will send a test alert to the SLACK_WEBHOOK.
 
 ### Templates
 A default set of slack templates have been provided

@@ -87,3 +87,7 @@
         {{- end }}
     {{- end }}
 {{- end }}
+
+{{ define "__alertmanagerURL" -}}
+    {{ .ExternalURL }}/#/alerts?receiver=slack-notifications
+{{ end }}
