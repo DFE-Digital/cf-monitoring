@@ -104,7 +104,7 @@ module "alertmanager" {
   monitoring_space_id      = data.cloudfoundry_space.monitoring.id
   config                   = var.alertmanager_config
   slack_url                = var.alertmanager_slack_url
-  slack_channel            = var.alertmanager_slack_channel
+  slack_receivers          = var.alertmanager_slack_receivers
   slack_template           = var.alertmanager_slack_template
   docker_credentials       = var.docker_credentials
 }
