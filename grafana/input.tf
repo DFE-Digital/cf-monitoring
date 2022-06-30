@@ -10,6 +10,8 @@ variable "runtime_version" { default = "" }
 variable "google_client_id" { default = "" }
 variable "google_client_secret" { default = "" }
 variable "google_jwt" { default = "" }
+variable "enable_anonymous_auth" { default = false }
+
 variable "influxdb_credentials" { default = null }
 variable "elasticsearch_credentials" {
   type = map(any)
@@ -30,8 +32,9 @@ locals {
   dashboard_list          = fileset(path.module, "dashboards/*.json")
   dashboards              = [for f in local.dashboard_list : file("${path.module}/${f}")]
   grafana_ini_variables = {
-    google_client_id     = var.google_client_id
-    google_client_secret = var.google_client_secret
+    google_client_id      = var.google_client_id
+    google_client_secret  = var.google_client_secret
+    enable_anonymous_auth = var.enable_anonymous_auth
   }
   grafana_datasource_variables = {
     google_jwt             = var.google_jwt

@@ -98,6 +98,11 @@ variable "grafana_elasticsearch_credentials" {
   }
 }
 
+variable "grafana_anonymous_auth" {
+  description = "Enable anonymous readonly access to Grafana"
+  default     = false
+}
+
 variable "docker_credentials" {
   description = "Credentials for Dockerhub. Map of {username, password}."
   type        = map(any)

@@ -126,4 +126,5 @@ module "grafana" {
   influxdb_credentials       = module.influxdb[0].credentials
   runtime_version            = var.grafana_runtime_version
   elasticsearch_credentials  = var.grafana_elasticsearch_credentials
+  enable_anonymous_auth      = var.grafana_anonymous_auth
 }
