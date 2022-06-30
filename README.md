@@ -9,7 +9,7 @@ Collection of [terraform](https://www.terraform.io/) modules to deploy the [prom
 - Metrics-based alerts can be created in prometheus and processed by [alertmanager](https://prometheus.io/docs/alerting/) to send to Slack, email, pagerduty, etc
 - Finally, the metrics are available in [grafana](https://grafana.com/) to build dashboards, help troubleshooting and create alerts.
 
-The [prometheus_all module](#prometheus-all) is a good starting point as it includes all the other modules.
+The [prometheus_all module](#prometheus-all) is a good starting point as it includes all the other modules. Check the variables in [prometheus_all](https://github.com/DFE-Digital/cf-monitoring/blob/master/prometheus_all/input.tf) for a description of all configuration options.
 
 ## Source
 
