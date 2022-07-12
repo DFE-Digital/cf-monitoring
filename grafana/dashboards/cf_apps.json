@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": 10063,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1650960370325,
+  "iteration": 1657614758061,
   "links": [],
   "panels": [
     {
@@ -578,6 +577,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Based on requests in the 95th percentile response time bucket: 95% of requests have a response time equal or below this time.",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -620,9 +620,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(response_time_sum{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app) / sum(rate(response_time_count{space=\"$SpaceName\", app=~\"$Applications\"}[1m])) by (app)",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum(rate(response_time_bucket{space=\"$SpaceName\", app=\"$Applications\", status_range=\"2xx\"}[1m])) by (le))\r",
           "interval": "",
-          "legendFormat": "{{app}}",
+          "legendFormat": "$Applications",
           "refId": "A"
         }
       ],
@@ -973,7 +974,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "bat-prod",
           "value": "bat-prod"
         },
@@ -1004,7 +1005,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "apply-prod",
           "value": "apply-prod"
         },
