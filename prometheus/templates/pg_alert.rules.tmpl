@@ -3,7 +3,7 @@ groups:
   rules:
 %{ for instance in alertable_postgres_instances ~}
   - alert: Postgres memory available low (instance - ${instance.pg_instance}, space - ${instance.pg_spacename})
-    expr: min_over_time(freeable_memory_bytes{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}[15m])/1024/1024/1024 < ${instance.min_mem}
+    expr: min_over_time(freeable_memory_bytes{service="${instance.pg_instance}",space="${instance.pg_spacename}"}[15m])/1024/1024/1024 < ${instance.min_mem}
     for: 5m
     annotations:
       summary:     ${instance.pg_instance} low memory available
@@ -19,7 +19,7 @@ groups:
   rules:
 %{ for instance in alertable_postgres_instances ~}
   - alert: Postgres CPU Utilisation high (instance - ${instance.pg_instance}, space - ${instance.pg_spacename})
-    expr: max_over_time(cpu_percent{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}[15m]) > ${instance.max_cpu}
+    expr: max_over_time(cpu_percent{service="${instance.pg_instance}",space="${instance.pg_spacename}"}[15m]) > ${instance.max_cpu}
     for: 5m
     annotations:
       summary:     ${instance.pg_instance} high CPU Utilisation
@@ -35,7 +35,7 @@ groups:
   rules:
 %{ for instance in alertable_postgres_instances ~}
   - alert: Postgres Storage available low (instance - ${instance.pg_instance}, space - ${instance.pg_spacename})
-    expr: min_over_time(free_storage_space_bytes{service=~"${instance.pg_instance}",space="${instance.pg_spacename}"}[15m])/1024/1024/1024 < ${instance.min_stg}
+    expr: min_over_time(free_storage_space_bytes{service="${instance.pg_instance}",space="${instance.pg_spacename}"}[15m])/1024/1024/1024 < ${instance.min_stg}
     for: 5m
     annotations:
       summary:     ${instance.pg_instance} low storage available
